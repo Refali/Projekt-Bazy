@@ -1,0 +1,57 @@
+﻿<Window x:Class="Projekt_Czarnacka_Gawron_Hasa_Kuchta.Recepcja"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Projekt_Czarnacka_Gawron_Hasa_Kuchta"
+        mc:Ignorable="d"
+        Title="Recepcja" Height="450" Width="352.594">
+
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Height="34" VerticalAlignment="Top">
+                <MenuItem Header="_Opcje" Width="43" Height="34" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <MenuItem Header="_Nowy pacjent" Click="nowyPacjent_Click" />
+                    <MenuItem Header="_Nowa wizyta" Click="nowaWizyta_Click" />
+                    <MenuItem Header="_Edycja wizyty" Click="edycjaWizyty_Click" />
+                </MenuItem>
+            </Menu>
+            <Grid x:Name="PanelDodawaniePacjenta" Height="381" VerticalAlignment="Top" Width="343" Visibility="Collapsed">
+                <TextBox x:Name="imiePacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="106,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="nazwiskoPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="106,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="peselPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="106,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="adresPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="106,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="telefonPacjenta" HorizontalAlignment="Left" Height="23" Margin="106,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Button x:Name="ZapiszPacjenta" Content="Zapisz" HorizontalAlignment="Left" Margin="129,166,0,0" VerticalAlignment="Top" Width="75"/>
+                <Label Content="Imie" HorizontalAlignment="Left" Margin="68,26,0,0" VerticalAlignment="Top" Height="23"/>
+                <Label Content="Nazwisko" HorizontalAlignment="Left" Margin="41,54,0,0" VerticalAlignment="Top" Height="23"/>
+                <Label Content="PESEL" HorizontalAlignment="Left" Margin="60,82,0,0" VerticalAlignment="Top" Height="23"/>
+                <Label Content="Adres" HorizontalAlignment="Left" Margin="60,110,0,0" VerticalAlignment="Top" Height="23"/>
+                <Label Content="Numer telefonu" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Height="23"/>
+            </Grid>
+            <Grid x:Name="PanelDodawanieWizyty" Height="380" VerticalAlignment="Top" Width="343" Margin="0,5,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="69*"/>
+                    <ColumnDefinition Width="188*"/>
+                    <ColumnDefinition Width="86*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="PacjentTxt" HorizontalAlignment="Left" Height="23" Margin="37.378,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+                <TextBox x:Name="LekarzTxt" HorizontalAlignment="Left" Height="23" Margin="37.378,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+                <TextBox x:Name="DataTxt" HorizontalAlignment="Left" Height="23" Margin="37.378,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+                <TextBox x:Name="GodzinaTxt" HorizontalAlignment="Left" Height="23" Margin="37.378,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+                <TextBox x:Name="StatusTxt" HorizontalAlignment="Left" Height="23" Margin="37.378,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+                <Button x:Name="ZapiszWizyte" Content="Zapisz" HorizontalAlignment="Left" Margin="60.378,166,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1"/>
+                <Label Content="Pacjent" HorizontalAlignment="Left" Margin="53,26,0,0" VerticalAlignment="Top" Height="28" Grid.ColumnSpan="2"/>
+                <Label Content="Lekarz" HorizontalAlignment="Left" Margin="57,54,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
+                <Label Content="Data" HorizontalAlignment="Left" Margin="66,82,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
+                <Label Content="Godzina" HorizontalAlignment="Left" Margin="47,110,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
+                <Label Content="Status" HorizontalAlignment="Left" Margin="57,138,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
+            </Grid>
+            <Grid x:Name="PanelEdycjaWizyty" Width="343" Visibility="Collapsed">
+                <DataGrid HorizontalAlignment="Left" Height="314" Margin="26,10,0,0" VerticalAlignment="Top" Width="294"/>
+                <Button x:Name="ZapiszEdycje" Content="Zapisz" HorizontalAlignment="Left" Margin="131,340,0,0" VerticalAlignment="Top" Width="75"/>
+            </Grid>
+
+        </DockPanel>
+    </Grid>
+</Window>
