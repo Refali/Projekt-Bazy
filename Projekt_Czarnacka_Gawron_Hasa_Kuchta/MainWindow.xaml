@@ -13,7 +13,7 @@
         <Label Content="Hasło" HorizontalAlignment="Left" Margin="138,216,0,0" VerticalAlignment="Top"/>
         <Label Content="Przychodnia " HorizontalAlignment="Left" Margin="27,69,0,0" VerticalAlignment="Top" Height="106" Width="411" FontSize="72"/>
         <PasswordBox x:Name="passwordTxt" HorizontalAlignment="Left" Margin="183,219,0,0" VerticalAlignment="Top" Width="120" Height="24"/>
-        <Label Content="boss,recepcja,lekarz" HorizontalAlignment="Left" Margin="323,190,0,0" VerticalAlignment="Top"/>
+        <Label Content="w lub r lub l" HorizontalAlignment="Left" Margin="316,190,0,0" VerticalAlignment="Top" Height="52" Width="108"/>
 
     </Grid>
 </Window>

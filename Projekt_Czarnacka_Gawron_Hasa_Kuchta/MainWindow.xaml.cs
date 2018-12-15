@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Data.SqlClient;
 namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 {
     /// <summary>
@@ -20,6 +20,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
     /// </summary>
     public partial class MainWindow : Window
     {
+        SqlConnection conn;
+        SqlConnectionStringBuilder connString;
         public MainWindow()
         {
             InitializeComponent();
@@ -27,24 +29,44 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (userTxt.Text == "recepcja")
+            if (userTxt.Text == "r")
             {
-                Recepcja recepcjaOkno = new Recepcja();
+                connString = new SqlConnectionStringBuilder();
+                connString.InitialCatalog = "Firma";
+                connString.DataSource = "DESKTOP-70K18SL\\SQLEXPRESS";
+                connString.IntegratedSecurity = true;
+                conn = new SqlConnection(connString.ConnectionString);
+                conn.Open();
+                Recepcja recepcjaOkno = new Recepcja(conn, userTxt.Text);
                 recepcjaOkno.Show();
                 this.Close();
             }
-            else if (userTxt.Text == "lekarz")
+            else if (userTxt.Text == "l")
             {
+                connString = new SqlConnectionStringBuilder();
+                connString.InitialCatalog = "Firma";
+                connString.DataSource = "DESKTOP-70K18SL\\SQLEXPRESS";
+                connString.IntegratedSecurity = true;
+                conn = new SqlConnection(connString.ConnectionString);
+                conn.Open();
                 Lekarz lekarzOkno = new Lekarz();
                 lekarzOkno.Show();
                 this.Close();
             }
-            else if (userTxt.Text == "boss")
+            else if (userTxt.Text == "w")
             {
+                connString = new SqlConnectionStringBuilder();
+                connString.InitialCatalog = "Firma";
+                connString.DataSource = "DESKTOP-70K18SL\\SQLEXPRESS";
+                connString.IntegratedSecurity = true;
+                conn = new SqlConnection(connString.ConnectionString);
+                conn.Open();
                 Wlasciciel bossOkno = new Wlasciciel();
                 bossOkno.Show();
                 this.Close();
+                
             }
+            
 
         }
     }

@@ -8,15 +8,20 @@
         Title="Recepcja" Height="450" Width="352.594">
 
     <Grid>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000"/>
+        <Label Content="Zalogowano jako" HorizontalAlignment="Left" Margin="98,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000"/>
+        <Label x:Name="userLbl" Content="" HorizontalAlignment="Left" Margin="199,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="95"/>
+        <Label x:Name="statusLbl" Content="" HorizontalAlignment="Left" Margin="52,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="46"/>
+
         <DockPanel>
             <Menu DockPanel.Dock="Top" Height="34" VerticalAlignment="Top">
                 <MenuItem Header="_Opcje" Width="43" Height="34" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <MenuItem Header="_Nowy pacjent" Click="nowyPacjent_Click" />
                     <MenuItem Header="_Nowa wizyta" Click="nowaWizyta_Click" />
-                    <MenuItem Header="_Edycja wizyty" Click="edycjaWizyty_Click" />
+                    <MenuItem Header="_Przeglądanie wizyt" Click="edycjaWizyty_Click" />
                 </MenuItem>
             </Menu>
-            <Grid x:Name="PanelDodawaniePacjenta" Height="381" VerticalAlignment="Top" Width="343" Visibility="Collapsed">
+            <Grid x:Name="PanelDodawaniePacjenta" Height="381" VerticalAlignment="Top" Width="343" Visibility="Collapsed" Panel.ZIndex="1">
                 <TextBox x:Name="imiePacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="106,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="nazwiskoPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="106,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="peselPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="106,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -29,7 +34,7 @@
                 <Label Content="Adres" HorizontalAlignment="Left" Margin="60,110,0,0" VerticalAlignment="Top" Height="23"/>
                 <Label Content="Numer telefonu" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Height="23"/>
             </Grid>
-            <Grid x:Name="PanelDodawanieWizyty" Height="380" VerticalAlignment="Top" Width="343" Margin="0,5,0,0">
+            <Grid x:Name="PanelDodawanieWizyty" Height="380" VerticalAlignment="Top" Width="343" Margin="0,5,0,0" Panel.ZIndex="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="69*"/>
                     <ColumnDefinition Width="188*"/>
@@ -47,9 +52,9 @@
                 <Label Content="Godzina" HorizontalAlignment="Left" Margin="47,110,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
                 <Label Content="Status" HorizontalAlignment="Left" Margin="57,138,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
             </Grid>
-            <Grid x:Name="PanelEdycjaWizyty" Width="343" Visibility="Collapsed">
+            <Grid x:Name="PanelEdycjaWizyty" Width="343" Visibility="Collapsed" Panel.ZIndex="1">
                 <DataGrid HorizontalAlignment="Left" Height="314" Margin="26,10,0,0" VerticalAlignment="Top" Width="294"/>
-                <Button x:Name="ZapiszEdycje" Content="Zapisz" HorizontalAlignment="Left" Margin="131,340,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button x:Name="ZapiszEdycje" Content="Zapisz" HorizontalAlignment="Left" Margin="131,330,0,0" VerticalAlignment="Top" Width="75"/>
             </Grid>
 
         </DockPanel>
