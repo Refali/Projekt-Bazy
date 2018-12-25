@@ -1,0 +1,58 @@
+/* 
+  Baza stworzona przez Kuca, dodałam związki dla bazy Wizyty i uwagi jako kolumna tabeli
+  ogólnie klucze obce są po id każej tabeli, jeden pacjent/lekarz może być przypisany do wielu wizyt tak ja to widzę 
+  wyświetlanie danych w datagridach będzie poprzez łączenie tabel joinami, może dzisiaj wystukam jeszcze odpowiednie zapytania 
+  do każdego przypadku, dobrze by było je dodać do tego kodu, 
+*/
+
+
+Create database Firma
+GO
+use Firma
+GO
+create table Pacjenci
+(
+id int Identity(1,1) not null Primary Key,
+imie varchar(30) not null,
+nazwisko varchar(30) not null,
+pesel varchar(11) not null,
+adres varchar(40) not null,
+telefon varchar(16) not null
+)
+
+Create table Pracownicy
+(
+id int Identity(1,1) not null Primary Key,
+imie varchar(30) not null,
+nazwisko varchar(30) not null,
+pesel varchar(11) not null,
+adres varchar(40) not null,
+telefon varchar(16) not null,
+stanowisko varchar(15) not null,
+login varchar(20),
+haslo varchar(20)
+)
+
+Create table Wizyty
+(
+id int Identity(1,1) not null Primary Key,
+id_pacjenta int FOREIGN KEY REFERENCES Pacjenci(id),
+id_lekarza int FOREIGN KEY REFERENCES Pracownicy(id),
+data date not null,
+godzina time not null,
+status varchar(15) not null,
+uwagi varchar(100)
+)
+GO
+Insert Into Pracownicy VALUES ('Michał','Recepcjonista','99999999999','Gdzies','+48666666666','Recepcjonistka','rec','rec')
+Insert Into Pracownicy VALUES ('Kasia','Lekarz','99999999999','Gdzies','+48666666666','Lekarz','lek','lek')
+Insert Into Pracownicy VALUES ('Zdzisław','Właściciel','99999999999','Gdzies','+48666666666','Wlasciciel','wla','wla')
+
+
+Insert Into Pacjenci VALUES ('Karolina','Góra','99999999999','S. Poniatowskiego, 52-300 Bielsko-Biała','+48666666666')
+Insert Into Pacjenci VALUES ('Kasia','Cygan','99999999999','Ruda Śląska','+48666666666')
+GO
+
+select * from Pracownicy
+select * from Wizyty
+select * from Pacjenci
