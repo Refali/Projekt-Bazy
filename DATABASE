@@ -39,7 +39,7 @@ id int Identity(1,1) not null Primary Key,
 id_pacjenta int FOREIGN KEY REFERENCES Pacjenci(id),
 id_lekarza int FOREIGN KEY REFERENCES Pracownicy(id),
 data date not null,
-godzina time not null,
+godzina varchar(5) not null,
 status varchar(15) not null,
 uwagi varchar(100)
 )
