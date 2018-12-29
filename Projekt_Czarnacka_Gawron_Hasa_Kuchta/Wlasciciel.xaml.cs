@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 {
-    /// <summary>
-    /// Logika interakcji dla klasy Wlasciciel.xaml
-    /// </summary>
     public partial class Wlasciciel : Window
     {
         public Wlasciciel()

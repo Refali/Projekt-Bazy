@@ -27,7 +27,7 @@
                 <TextBox x:Name="peselPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="106,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="adresPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="106,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="telefonPacjenta" HorizontalAlignment="Left" Height="23" Margin="106,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Button x:Name="ZapiszPacjenta" Content="Zapisz" HorizontalAlignment="Left" Margin="129,166,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button x:Name="ZapiszPacjenta" Content="Zapisz" HorizontalAlignment="Left" Margin="129,166,0,0" VerticalAlignment="Top" Width="75" Click="ZapiszPacjenta_Click"/>
                 <Label Content="Imie" HorizontalAlignment="Left" Margin="68,26,0,0" VerticalAlignment="Top" Height="23"/>
                 <Label Content="Nazwisko" HorizontalAlignment="Left" Margin="41,54,0,0" VerticalAlignment="Top" Height="23"/>
                 <Label Content="PESEL" HorizontalAlignment="Left" Margin="60,82,0,0" VerticalAlignment="Top" Height="23"/>
@@ -40,17 +40,26 @@
                     <ColumnDefinition Width="188*"/>
                     <ColumnDefinition Width="86*"/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="PacjentTxt" HorizontalAlignment="Left" Height="23" Margin="37.378,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-                <TextBox x:Name="LekarzTxt" HorizontalAlignment="Left" Height="23" Margin="37.378,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-                <TextBox x:Name="DataTxt" HorizontalAlignment="Left" Height="23" Margin="37.378,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-                <TextBox x:Name="GodzinaTxt" HorizontalAlignment="Left" Height="23" Margin="37.378,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-                <TextBox x:Name="StatusTxt" HorizontalAlignment="Left" Height="23" Margin="37.378,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-                <Button x:Name="ZapiszWizyte" Content="Zapisz" HorizontalAlignment="Left" Margin="60.378,166,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1"/>
+                <DatePicker x:Name="DataTxt" Grid.Column="1" HorizontalAlignment="Left" Margin="37,81,0,0" VerticalAlignment="Top" Width="120" SelectedDateFormat="Short"/>
+                <Button x:Name="ZapiszWizyte" Content="Zapisz" HorizontalAlignment="Left" Margin="60,139,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="ZapiszWizyte_Click"/>
                 <Label Content="Pacjent" HorizontalAlignment="Left" Margin="53,26,0,0" VerticalAlignment="Top" Height="28" Grid.ColumnSpan="2"/>
                 <Label Content="Lekarz" HorizontalAlignment="Left" Margin="57,54,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
                 <Label Content="Data" HorizontalAlignment="Left" Margin="66,82,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
                 <Label Content="Godzina" HorizontalAlignment="Left" Margin="47,110,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
-                <Label Content="Status" HorizontalAlignment="Left" Margin="57,138,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
+                <ComboBox x:Name="PacjentListBox" Grid.Column="1" HorizontalAlignment="Left" Margin="37,26,0,0" VerticalAlignment="Top" Width="120"/>
+                <ComboBox x:Name="LekarzListBox" Grid.Column="1" HorizontalAlignment="Left" Margin="37,55,0,0" VerticalAlignment="Top" Width="120"/>
+                <ComboBox x:Name="GodzinaListBox" HorizontalAlignment="Left" Margin="37,110,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1">
+                    <ComboBoxItem Content="10:00"/>
+                    <ComboBoxItem Content="11:00"/>
+                    <ComboBoxItem Content="12:00"/>
+                    <ComboBoxItem Content="13:00"/>
+                    <ComboBoxItem Content="14:00"/>
+                    <ComboBoxItem Content="15:00"/>
+                    <ComboBoxItem Content="16:00"/>
+                    <ComboBoxItem Content="17:00"/>
+                    <ComboBoxItem Content="18:00"/>
+                </ComboBox>
+
             </Grid>
             <Grid x:Name="PanelEdycjaWizyty" Width="343" Visibility="Collapsed" Panel.ZIndex="1">
                 <DataGrid HorizontalAlignment="Left" Height="314" Margin="26,10,0,0" VerticalAlignment="Top" Width="294"/>

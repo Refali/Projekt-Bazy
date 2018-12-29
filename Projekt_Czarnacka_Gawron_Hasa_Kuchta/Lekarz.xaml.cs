@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 {
-    /// <summary>
-    /// Logika interakcji dla klasy Lekarz.xaml
-    /// </summary>
     public partial class Lekarz : Window
     {
         public Lekarz()

@@ -14,9 +14,7 @@ using System.Windows.Shapes;
 
 namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 {
-    /// <summary>
-    /// Logika interakcji dla klasy EdycjaWizyt.xaml
-    /// </summary>
+
     public partial class EdycjaWizyt : Window
     {
         public EdycjaWizyt()

@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 using System.Data.SqlClient;
 namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 {
-    /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         SqlConnection conn;
@@ -33,14 +30,15 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             {
                 connString = new SqlConnectionStringBuilder();
                 connString.InitialCatalog = "Firma";
-                // connString.DataSource = "DESKTOP-70K18SL\\SQLEXPRESS";
-                connString.DataSource = "localhost";
+                connString.DataSource = "DESKTOP-70K18SL\\SQLEXPRESS";
+                //connString.DataSource = "localhost";
                 connString.IntegratedSecurity = true;
                 conn = new SqlConnection(connString.ConnectionString);
                 conn.Open();
 
                 SqlCommand query = new SqlCommand();
-                string polecenie = "Select Stanowisko from Pracownicy where login=@login and password=@password"; 
+                string polecenie = "Select Stanowisko from Pracownicy where login=@login and haslo=@password"; 
+
                 query.Parameters.AddWithValue("@login", userTxt.Text); 
                 query.Parameters.AddWithValue("@password", passwordTxt.Password);
                 query.CommandText = polecenie;
@@ -58,7 +56,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 }
                 reader.Close();
 
-                if (ilosc == 1)
+                if (ilosc >= 1)
                 {
                     if (stanowisko == "Recepcjonistka")
                     {
@@ -88,9 +86,9 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 userTxt.Clear();
                 passwordTxt.Clear();
             }
-            catch(SqlException)
+            catch(SqlException ex)
             {
-                // cos co sie stanie przy blencie
+                MessageBox.Show(ex.Message);
             }
             
             
