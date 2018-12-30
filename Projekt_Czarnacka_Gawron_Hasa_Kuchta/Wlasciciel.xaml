@@ -7,11 +7,17 @@
         mc:Ignorable="d"
         Title="Wlasciciel" Height="450" Width="352.594">
     <Grid>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000"/>
+        <Label Content="Zalogowano jako" HorizontalAlignment="Left" Margin="98,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000"/>
+        <Label x:Name="userLblW" Content="" HorizontalAlignment="Left" Margin="199,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="95"/>
+        <Label x:Name="statusLblW" Content="" HorizontalAlignment="Left" Margin="52,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="46"/>
+
         <DockPanel>
             <Menu DockPanel.Dock="Top" Height="34" VerticalAlignment="Top">
                 <MenuItem Header="_Opcje" Width="43" Height="34" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <MenuItem Header="_Nowy lekarz" Click="nowyLekarz_Click" />
-                    <MenuItem Header="_Raport" Click="Raport_Click"/>
+                    <MenuItem Header="_Pracownicy" Click="Pracownicy_Click"/>
+                    <MenuItem Header="_Raporty" Click="Raport_Click"/>
                 </MenuItem>
             </Menu>
             <Grid x:Name="PanelDodawanieLekarza" Height="381" VerticalAlignment="Top" Width="343">
@@ -20,15 +26,34 @@
                 <TextBox x:Name="peselLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="106,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="adresLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="106,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="telefonLekarza" HorizontalAlignment="Left" Height="23" Margin="106,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="stanowiskoLekarza" HorizontalAlignment="Left" Height="23" Margin="106,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Button x:Name="ZapiszLekarza" Content="Zapisz" HorizontalAlignment="Left" Margin="129,194,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button x:Name="ZapiszLekarza" Content="Zapisz" HorizontalAlignment="Left" Margin="129,194,0,0" VerticalAlignment="Top" Width="75" Click="ZapiszLekarza_Click"/>
                 <Label Content="Imie" HorizontalAlignment="Left" Margin="68,26,0,0" VerticalAlignment="Top" Height="23"/>
                 <Label Content="Nazwisko" HorizontalAlignment="Left" Margin="41,54,0,0" VerticalAlignment="Top" Height="23"/>
                 <Label Content="PESEL" HorizontalAlignment="Left" Margin="60,82,0,0" VerticalAlignment="Top" Height="23"/>
                 <Label Content="Adres" HorizontalAlignment="Left" Margin="60,110,0,0" VerticalAlignment="Top" Height="23"/>
                 <Label Content="Numer telefonu" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Height="23"/>
                 <Label Content="Stanowisko" HorizontalAlignment="Left" Margin="31,166,0,0" VerticalAlignment="Top" Height="23"/>
-
+                <ComboBox x:Name="StanowiskoBox" HorizontalAlignment="Left" Margin="106,166,0,0" VerticalAlignment="Top" Width="120">
+                    <ComboBoxItem Content="Recepcja"/>
+                    <ComboBoxItem Content="Lekarz"/>
+                </ComboBox>
+            </Grid>
+            <Grid x:Name="PanelRaportów" Width="343" Panel.ZIndex="1">
+            </Grid>
+            <Grid x:Name="PanelPracownikow" Width="343" Panel.ZIndex="1">
+                <DataGrid x:Name="PracownicyView" Height="314" Margin="10,10,11,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding id}"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Imie" Binding="{Binding imie}" />
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding nazwisko}" />
+                        <DataGridTextColumn Header="Pesel" Binding="{Binding pesel}"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Adres" Binding="{Binding adres}" />
+                        <DataGridTextColumn Header="Telefon" Binding="{Binding telefon}" />
+                        <DataGridTextColumn Header="Stanowisko" Binding="{Binding stanowisko}" />
+                        <DataGridTextColumn Header="Login" Binding="{Binding login}" />
+                        <DataGridTextColumn Header="Hasło" Binding="{Binding haslo}" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
         </DockPanel>
     </Grid>

@@ -19,7 +19,7 @@
                     <MenuItem Header="_Nowy pacjent" Click="nowyPacjent_Click" />
                     <MenuItem Header="_Nowa wizyta" Click="nowaWizyta_Click" />
                     <MenuItem Header="_Wizyty" Click="edycjaWizyty_Click" />
-                    <MenuItem Header="_Usuń pacjenta" Click="usunPacjenta_Click" />
+                    <MenuItem Header="_Pacjenci" Click="usunPacjenta_Click" />
                 </MenuItem>
             </Menu>
             <Grid x:Name="PanelDodawaniePacjenta" Height="381" VerticalAlignment="Top" Width="343" Visibility="Collapsed" Panel.ZIndex="1">
@@ -41,7 +41,7 @@
                     <ColumnDefinition Width="188*"/>
                     <ColumnDefinition Width="86*"/>
                 </Grid.ColumnDefinitions>
-                <DatePicker x:Name="DataTxt" Grid.Column="1" HorizontalAlignment="Left" Margin="37,81,0,0" VerticalAlignment="Top" Width="120" />
+                <DatePicker x:Name="DataTxt" Grid.Column="1" HorizontalAlignment="Left" Margin="37,81,0,0" VerticalAlignment="Top" Width="120" DisplayDate="2018-12-30" />
 
                 <Button x:Name="ZapiszWizyte" Content="Zapisz" HorizontalAlignment="Left" Margin="60,139,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="ZapiszWizyte_Click"/>
                 <Label Content="Pacjent" HorizontalAlignment="Left" Margin="53,26,0,0" VerticalAlignment="Top" Height="28" Grid.ColumnSpan="2"/>
@@ -63,15 +63,33 @@
                 </ComboBox>
 
             </Grid>
-            <Grid x:Name="PanelEdycjaWizyty" Width="343" Visibility="Collapsed" Panel.ZIndex="1">
-                <DataGrid HorizontalAlignment="Left" Height="314" Margin="26,10,0,0" VerticalAlignment="Top" Width="294"/>
-                <Button x:Name="ZapiszEdycje" Content="Zapisz" HorizontalAlignment="Left" Margin="131,330,0,0" VerticalAlignment="Top" Width="75"/>
+            <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
+                <DataGrid x:Name="WizytyView" Height="314" Margin="10,10,10,0" VerticalAlignment="Top" AutoGenerateColumns="false" CanUserAddRows="false">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding id}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Id Pacjenta" Binding="{Binding id_pacjenta}"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Id Lekarza" Binding="{Binding id_lekarza}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Data" Binding="{Binding data, StringFormat='yyy-MM-dd'}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Godzina" Binding="{Binding godzina}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Status" Binding="{Binding status}" />
+                        <DataGridTextColumn Header="Uwagi" Binding="{Binding uwagi}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button x:Name="ZapiszEdycje" Content="Aktualizuj" HorizontalAlignment="Left" Margin="130,330,0,0" VerticalAlignment="Top" Width="75" Click="ZapiszEdycje_Click"/>
             </Grid>
             <Grid x:Name="PanelUsuwaniaPacjenta" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
-                <DataGrid HorizontalAlignment="Left" Height="314" Margin="26,10,0,0" VerticalAlignment="Top" Width="294"/>
-                <Button x:Name="UsuńBtn" Content="Usuń" HorizontalAlignment="Left" Margin="131,330,0,0" VerticalAlignment="Top" Width="75"/>
+                <DataGrid x:Name="UsuwanieView" Height="314" Margin="10,10,11,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding id}"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Imie" Binding="{Binding imie}" />
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding nazwisko}" />
+                        <DataGridTextColumn Header="Pesel" Binding="{Binding pesel}"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Adres" Binding="{Binding adres}" />
+                        <DataGridTextColumn Header="Telefon" Binding="{Binding telefon}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button x:Name="edytujPacnjentaBtn" Content="Aktualizuj" HorizontalAlignment="Left" Margin="130,330,0,0" VerticalAlignment="Top" Width="75" Click="UsuńBtn_Click"/>
             </Grid>
-            <Label Content="System Zarządzania Przychodnią" Height="27" VerticalAlignment="Top" Margin="0,24,0,0" Width="183"/>
 
         </DockPanel>
     </Grid>

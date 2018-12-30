@@ -19,6 +19,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
     {
         SqlConnection conn;
         SqlConnectionStringBuilder connString;
+        string idLekarza;
         public MainWindow()
         {
             InitializeComponent();
@@ -35,6 +36,10 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 connString.IntegratedSecurity = true;
                 conn = new SqlConnection(connString.ConnectionString);
                 conn.Open();
+
+
+
+                if (userTxt.Text.Substring(0, 3) == "lek") { idLekarza = userTxt.Text.Substring(3); }
 
                 SqlCommand query = new SqlCommand();
                 string polecenie = "Select Stanowisko from Pracownicy where login=@login and haslo=@password"; 
@@ -55,7 +60,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                     stanowisko = reader.GetString(0).Replace(" ", "");
                 }
                 reader.Close();
-
+               
                 if (ilosc >= 1)
                 {
                     if (stanowisko == "Recepcjonistka")
@@ -66,13 +71,13 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                     }
                     else if (stanowisko == "Lekarz")
                     {
-                        Lekarz lekarzOkno = new Lekarz();
+                        Lekarz lekarzOkno = new Lekarz(conn,userTxt.Text,idLekarza);
                         lekarzOkno.Show();
                         this.Close();
                     }
                     else if (stanowisko == "Wlasciciel")
                     {
-                        Wlasciciel bossOkno = new Wlasciciel();
+                        Wlasciciel bossOkno = new Wlasciciel(conn, userTxt.Text);
                         bossOkno.Show();
                         this.Close();
                     }
@@ -90,9 +95,6 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             {
                 MessageBox.Show(ex.Message);
             }
-            
-            
-            
 
         }
     }

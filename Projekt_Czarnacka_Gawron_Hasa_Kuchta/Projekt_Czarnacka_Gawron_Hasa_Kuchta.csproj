@@ -55,9 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="EdycjaWizyt.xaml.cs">
-      <DependentUpon>EdycjaWizyt.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Lekarz.xaml.cs">
       <DependentUpon>Lekarz.xaml</DependentUpon>
     </Compile>
@@ -67,10 +64,6 @@
     <Compile Include="Wlasciciel.xaml.cs">
       <DependentUpon>Wlasciciel.xaml</DependentUpon>
     </Compile>
-    <Page Include="EdycjaWizyt.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Lekarz.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

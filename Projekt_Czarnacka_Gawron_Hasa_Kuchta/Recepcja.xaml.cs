@@ -18,11 +18,15 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
     public partial class Recepcja : Window
     {
         SqlConnection conn;
-        SqlDataAdapter dataAdapterP,dataAdapterW,dataAdapterPr;
-        DataSet dsp,dsw,dsl;
+        SqlDataAdapter dataAdapterP,dataAdapterW, dataAdapterUsuwaniePacjenta, dataAdapterEdycjaWizyt;
+        DataSet dsp, dsw;
+        DataTable dt,dt2;
+
         string userName;
         int id_pacjenta, id_lekarza;
         int ilosc = 0;
+        int iloscPacjenta = 0;
+
         public Recepcja()
         {
             InitializeComponent();
@@ -37,47 +41,67 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             status(); //status i zalogowano jako
 
             selecty(); //wszystkie potrzebne selecty
-
+            fill_DataGrid_Wizyty();
+            fill_DataGrid_Pacjenci();
             fill_PacjentListBox(); //uzupełnienie listy Pacjentów w dodawaniu wizyty - wywołanie
             fill_LekarzListBox(); //uzupełnienie listy Lekarzy w dodawaniu wizyty - wywołanie
         }
         private void ZapiszPacjenta_Click(object sender, RoutedEventArgs e)
         {
-            DodawaniePacjenta(); //dodawanie pacjenta xd
+            DodawaniePacjenta(); //dodawanie pacjenta 
         }
 
         private void ZapiszWizyte_Click(object sender, RoutedEventArgs e)
         {
-            DodawanieWizyty();   //dodawanie wizyty xd         
+            DodawanieWizyty();   //dodawanie wizyty          
+        }
+
+        private void UsuńBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DataTable zmiany2 = dt2.GetChanges();
+                if (zmiany2 != null)
+                {
+                    SqlCommandBuilder zmianyUpdate2 = new SqlCommandBuilder(dataAdapterUsuwaniePacjenta);
+                    int zmienioneWiersze2 = dataAdapterUsuwaniePacjenta.Update(zmiany2);
+                    dt2.AcceptChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błędnie wpisane dane"+ex.Message);
+            }
+
+        }
+
+        //edycja wizyt
+        private void ZapiszEdycje_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DataTable zmiany = dt.GetChanges();
+                if (zmiany != null)
+                {
+                    SqlCommandBuilder zmianyUpdate = new SqlCommandBuilder(dataAdapterEdycjaWizyt);
+                    int zmienioneWiersze = dataAdapterEdycjaWizyt.Update(zmiany);
+                    dt.AcceptChanges();
+                }
+            }
+            catch (Exception ex )
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         //-----------------------------------------------------------//
         // --------------------------METODY--------------------------//
         //-----------------------------------------------------------//
 
+        //sprawdzanie czy dana wizyta już istnieje
         void SprawdzanieWizyty()
         {
-            SqlCommand querySprawdzenieWizyt = new SqlCommand();
-            string polecenieSprawdzenieWizyt = "select data,godzina from Wizyty where data=@data and godzina=@godzina";
-            querySprawdzenieWizyt.Parameters.AddWithValue("@data", DataTxt.SelectedDate.Value.ToShortDateString());
-            querySprawdzenieWizyt.Parameters.AddWithValue("@godzina", GodzinaListBox.SelectionBoxItem);
-            querySprawdzenieWizyt.CommandText = polecenieSprawdzenieWizyt;
-            querySprawdzenieWizyt.Connection = conn;
-
-            SqlDataReader readerSprawdzenieWizyt = querySprawdzenieWizyt.ExecuteReader();
-            
-            while (readerSprawdzenieWizyt.Read())
-            {
-                ilosc++;
-
-            }
-            readerSprawdzenieWizyt.Close();
-
-            MessageBox.Show(ilosc.ToString());
-        }
-        void DodawanieWizyty()
-        {
-           
             try
             {
                 //znalezienie id pacjenta w bazie
@@ -96,6 +120,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                         id_pacjenta = readerPac.GetInt32(0);
                     }
                 }
+                MessageBox.Show(id_pacjenta.ToString());
                 readerPac.Close();
                 //znalezienie id lekarza
                 SqlCommand queryLekarza = new SqlCommand();
@@ -114,15 +139,55 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                     }
                 }
                 readerPrac.Close();
+
+                //sprawdzenie wizyty na podstawie dnia godziny i lekarza
+                ilosc = 0;
+                SqlCommand querySprawdzenieWizyt = new SqlCommand();
+                string polecenieSprawdzenieWizyt = "select data,godzina,id_lekarza,id_pacjenta from Wizyty where (data=@data and godzina=@godzina and id_lekarza=@id_lekarz) or (data=@data and godzina=@godzina and id_pacjenta=@id_pacjent)";
+                querySprawdzenieWizyt.Parameters.AddWithValue("@data", DataTxt.SelectedDate.Value.ToString("yyyy-MM-dd"));
+                querySprawdzenieWizyt.Parameters.AddWithValue("@godzina", GodzinaListBox.SelectionBoxItem);
+                querySprawdzenieWizyt.Parameters.AddWithValue("@id_pacjent", id_pacjenta);
+                querySprawdzenieWizyt.Parameters.AddWithValue("@id_lekarz", id_lekarza);
+                querySprawdzenieWizyt.CommandText = polecenieSprawdzenieWizyt;
+                querySprawdzenieWizyt.Connection = conn;
+
+                SqlDataReader readerSprawdzenieWizyt = querySprawdzenieWizyt.ExecuteReader();
+
+                while (readerSprawdzenieWizyt.Read())
+                {
+                    ilosc++;
+
+                }
+                readerSprawdzenieWizyt.Close();
             }
-            catch (SqlException exc)
+            catch(Exception exc)
             {
                 MessageBox.Show(exc.Message);
             }
-            catch (Exception exc)
+        }
+        //sprawdzenie istnienia pacjenta na podstawie peselu
+        void SprawdzaniePacjenta()
+        {
+            iloscPacjenta = 0;
+            SqlCommand querySprawdzeniePacjenta = new SqlCommand();
+            string polecenieSprawdzeniePacjenta = "select pesel from Pacjenci where pesel=@pesel";
+            querySprawdzeniePacjenta.Parameters.AddWithValue("@pesel", peselPacjentaTxt.Text);
+            querySprawdzeniePacjenta.CommandText = polecenieSprawdzeniePacjenta;
+            querySprawdzeniePacjenta.Connection = conn;
+
+            SqlDataReader readerSprawdzeniePacjenta = querySprawdzeniePacjenta.ExecuteReader();
+
+            while (readerSprawdzeniePacjenta.Read())
             {
-                MessageBox.Show(exc.Message);
+                iloscPacjenta++;
+
             }
+            readerSprawdzeniePacjenta.Close();
+        }
+        //dodanie wizyty
+        void DodawanieWizyty()
+        {
+           
             SprawdzanieWizyty();
             try
             {
@@ -134,7 +199,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                     DataRow drw = dsw.Tables["Wizyty"].NewRow();
                     drw["id_pacjenta"] = id_pacjenta;
                     drw["id_lekarza"] = id_lekarza;
-                    drw["data"] = DataTxt.SelectedDate.Value.ToShortDateString();
+                    drw["data"] = DataTxt.SelectedDate.Value.ToString("yyyy-MM-dd"); 
                     drw["godzina"] = GodzinaListBox.SelectionBoxItem;
                     drw["status"] = "Zarezerwowana";
                     drw["uwagi"] = "Brak";
@@ -157,6 +222,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 else
                 {
                     MessageBox.Show("Jest już utworzona wizyta na tą datę");
+                    
                 }
                 
             }
@@ -166,45 +232,53 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             }
 
         }
-
+        //dodanie pacjenta
         void DodawaniePacjenta()
         {
-            try
+            SprawdzaniePacjenta();
+            if (iloscPacjenta == 0)
             {
-                DataRow dr = dsp.Tables["Pacjenci"].NewRow();
-                dr["imie"] = imiePacjentaTxt.Text;
-                dr["nazwisko"] = nazwiskoPacjentaTxt.Text;
-                dr["pesel"] = peselPacjentaTxt.Text;
-                dr["adres"] = adresPacjentaTxt.Text;
-                dr["telefon"] = telefonPacjenta.Text;
+                try
+                {
+                    DataRow dr = dsp.Tables["Pacjenci"].NewRow();
+                    dr["imie"] = imiePacjentaTxt.Text;
+                    dr["nazwisko"] = nazwiskoPacjentaTxt.Text;
+                    dr["pesel"] = peselPacjentaTxt.Text;
+                    dr["adres"] = adresPacjentaTxt.Text;
+                    dr["telefon"] = telefonPacjenta.Text;
 
-                dsp.Tables["Pacjenci"].Rows.Add(dr);
+                    dsp.Tables["Pacjenci"].Rows.Add(dr);
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            try
-            {
-                SqlCommandBuilder queryUpdate = new SqlCommandBuilder(dataAdapterP);
-                int updateIlosc = dataAdapterP.Update(dsp, "Pacjenci");
-                MessageBox.Show("Dodano pacjenta");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                try
+                {
+                    SqlCommandBuilder queryUpdate = new SqlCommandBuilder(dataAdapterP);
+                    int updateIlosc = dataAdapterP.Update(dsp, "Pacjenci");
+                    MessageBox.Show("Dodano pacjenta");
 
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message);
+                }
             }
-            catch (Exception exc)
+            else
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show("Taki pacjent już istnieje");
             }
 
         }
-
+        //statusy
         void status()
         {
             statusLbl.Content = conn.State.ToString(); 
             userLbl.Content = userName;
         }
-
+        //selecty
         void selecty()
         {
             string querySelectPacjenci = "Select * from Pacjenci";
@@ -217,13 +291,49 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             dsw = new DataSet();
             dataAdapterW.Fill(dsw, "Wizyty");
 
-            string querySelectLekarze = "Select * from Pracownicy";
-            dataAdapterPr = new SqlDataAdapter(querySelectLekarze, conn);
-            dsl = new DataSet();
-            dataAdapterPr.Fill(dsl, "Wizyty");
         }
+        //wypełnienie grida z pacjentami
+        void fill_DataGrid_Pacjenci()
+        {
+            try
+            {
+                SqlCommand cmd2 = new SqlCommand();
+                cmd2.CommandText = "select * from Pacjenci";
+                cmd2.Connection = conn;
+                dataAdapterUsuwaniePacjenta = new SqlDataAdapter(cmd2);
+                dt2 = new DataTable("Pacjenci");
+                dataAdapterUsuwaniePacjenta.Fill(dt2);
 
-        void fill_LekarzListBox() //uzupełnienie listy Pacjentów w dodawaniu wizyty
+                UsuwanieView.ItemsSource = dt2.DefaultView;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        //wypełnienie grida z wizytami
+        void fill_DataGrid_Wizyty()
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = "select * from Wizyty";
+                cmd.Connection = conn;
+                dataAdapterEdycjaWizyt = new SqlDataAdapter(cmd);
+                dt = new DataTable("Wizyty");
+                dataAdapterEdycjaWizyt.Fill(dt);
+
+                WizytyView.ItemsSource = dt.DefaultView;
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+        //uzupełnienie listy Pacjentów w dodawaniu wizyty
+        void fill_LekarzListBox() 
         {
             try
             {
@@ -244,7 +354,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             }
         }
 
-        void fill_PacjentListBox() //uzupełnienie listy Lekarzy w dodawaniu wizyty
+        //uzupełnienie listy Lekarzy w dodawaniu wizyty
+        void fill_PacjentListBox() 
         {
             try
             {
@@ -266,7 +377,6 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 
         }
 
-
         //Widzialność paneli
 
         private void nowyPacjent_Click(object sender, RoutedEventArgs e)
@@ -276,8 +386,10 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             PanelEdycjaWizyty.Visibility = Visibility.Collapsed;
             PanelUsuwaniaPacjenta.Visibility = Visibility.Collapsed;
         }
+
         private void usunPacjenta_Click(object sender, RoutedEventArgs e)
         {
+            fill_DataGrid_Pacjenci();
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Collapsed;
@@ -293,6 +405,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void edycjaWizyty_Click(object sender, RoutedEventArgs e)
         {
+            fill_DataGrid_Wizyty();
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Visible;

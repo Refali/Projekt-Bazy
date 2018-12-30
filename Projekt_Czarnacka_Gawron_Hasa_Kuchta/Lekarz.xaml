@@ -7,8 +7,26 @@
         mc:Ignorable="d"
         Title="Lekarz" Height="450" Width="352.594">
     <Grid>
-        <DataGrid HorizontalAlignment="Left" Height="359" Margin="10,10,0,0" VerticalAlignment="Top" Width="325"/>
-        <Button x:Name="ZapiszZakonczWizyte" Content="Zakończ wizyte" HorizontalAlignment="Left" Margin="114,374,0,0" VerticalAlignment="Top" Width="105"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000"/>
+        <Label Content="Zalogowano jako" HorizontalAlignment="Left" Margin="103,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000"/>
+        <Label x:Name="userLbl" Content="" HorizontalAlignment="Left" Margin="204,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="95"/>
+        <Label x:Name="statusLbl" Content="" HorizontalAlignment="Left" Margin="52,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="46"/>
 
+        <DockPanel>
+            <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Visible">
+                <DataGrid x:Name="WizytyView" Height="314" Margin="10,10,10,0" VerticalAlignment="Top" AutoGenerateColumns="false" CanUserAddRows="false">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding id}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Id Pacjenta" Binding="{Binding id_pacjenta}"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Id Lekarza" Binding="{Binding id_lekarza}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Data" Binding="{Binding data, StringFormat='yyy-MM-dd'}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Godzina" Binding="{Binding godzina}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Status" Binding="{Binding status}" />
+                        <DataGridTextColumn Header="Uwagi" Binding="{Binding uwagi}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button x:Name="ZapiszEdycje" Content="Aktualizuj" HorizontalAlignment="Left" Margin="130,330,0,0" VerticalAlignment="Top" Width="75" Click="ZapiszEdycje_Click"/>
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>
