@@ -1,4 +1,4 @@
-/* 
+﻿/* 
   Baza stworzona przez Kuca, dodałam związki dla bazy Wizyty i uwagi jako kolumna tabeli
   ogólnie klucze obce są po id każej tabeli, jeden pacjent/lekarz może być przypisany do wielu wizyt tak ja to widzę 
   wyświetlanie danych w datagridach będzie poprzez łączenie tabel joinami, może dzisiaj wystukam jeszcze odpowiednie zapytania 
@@ -44,13 +44,15 @@ status varchar(15) not null,
 uwagi varchar(100)
 )
 GO
-Insert Into Pracownicy VALUES ('Michał','Recepcjonista','99999999999','Gdzies','+48666666666','Recepcjonistka','rec','rec')
-Insert Into Pracownicy VALUES ('Kasia','Lekarz','99999999999','Gdzies','+48666666666','Lekarz','lek','lek')
-Insert Into Pracownicy VALUES ('Zdzisław','Właściciel','99999999999','Gdzies','+48666666666','Wlasciciel','wla','wla')
+Insert Into Pracownicy VALUES ('Michał','Recepcjonista','97011789876','Gdzies','+48666666666','Recepcjonistka','rec','rec')
+Insert Into Pracownicy VALUES ('Kasia','Kowalska','80017612124','Gdzies','+48666666666','Lekarz','lek2','lek2')
+Insert Into Pracownicy VALUES ('Marcin','Nowak','90052109123','Gdzies','+48666666666','Lekarz','lek3','lek3')
+Insert Into Pracownicy VALUES ('Filip','Lejowski','65080165789','Gdzies','+48666666666','Lekarz','lek4','lek4')
+Insert Into Pracownicy VALUES ('Zdzisław','Właściciel','77070712345','Gdzies','+48666666666','Wlasciciel','wla','wla')
 
 
-Insert Into Pacjenci VALUES ('Karolina','Góra','99999999999','S. Poniatowskiego, 52-300 Bielsko-Biała','+48666666666')
-Insert Into Pacjenci VALUES ('Kasia','Cygan','99999999999','Ruda Śląska','+48666666666')
+Insert Into Pacjenci VALUES ('Karolina','Góra','67113007108','S. Poniatowskiego, 52-300 Bielsko-Biała','+48666666666')
+Insert Into Pacjenci VALUES ('Kasia','Cygan','90081807804','Ruda Śląska','+48666666666')
 GO
 
 select * from Pracownicy
