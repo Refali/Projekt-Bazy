@@ -33,7 +33,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             this.conn = conn;
             this.userName = userName;
             this.idLekarza = idLekarza;
-
+            status();
             fill_DataGrid_Wizyty();
         }
         void fill_DataGrid_Wizyty()
