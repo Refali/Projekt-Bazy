@@ -385,6 +385,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Collapsed;
             PanelUsuwaniaPacjenta.Visibility = Visibility.Collapsed;
+            this.Width = 352.594;
+            this.Height = 471;
         }
 
         private void usunPacjenta_Click(object sender, RoutedEventArgs e)
@@ -394,6 +396,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Collapsed;
             PanelUsuwaniaPacjenta.Visibility = Visibility.Visible;
+            this.Width = 652.594;
+            this.Height = 471;
         }
         private void nowaWizyta_Click(object sender, RoutedEventArgs e)
         {
@@ -401,6 +405,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Collapsed;
             PanelUsuwaniaPacjenta.Visibility = Visibility.Collapsed;
+            this.Width = 352.594;
+            this.Height = 471;
         }
 
         private void edycjaWizyty_Click(object sender, RoutedEventArgs e)
@@ -410,6 +416,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Visible;
             PanelUsuwaniaPacjenta.Visibility = Visibility.Collapsed;
+            this.Width = 652.594;
+            this.Height = 471;
         }
 
         

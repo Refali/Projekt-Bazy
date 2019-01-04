@@ -5,43 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Projekt_Czarnacka_Gawron_Hasa_Kuchta"
         mc:Ignorable="d"
-        Title="Wlasciciel" Height="450" Width="352.594">
+        Title="Wlasciciel" Height="450" Width="352.594" Background="#FFFBFAD3" Icon="logo.png" ResizeMode="CanMinimize">
     <Grid>
-        <Label Content="Status" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000"/>
-        <Label Content="Zalogowano jako" HorizontalAlignment="Left" Margin="98,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000"/>
-        <Label x:Name="userLblW" Content="" HorizontalAlignment="Left" Margin="199,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="95"/>
-        <Label x:Name="statusLblW" Content="" HorizontalAlignment="Left" Margin="52,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="46"/>
+        <Label Content="Status:" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" FontFamily="Lato" FontWeight="Bold"/>
+        <Label Content="Zalogowano jako:" HorizontalAlignment="Left" Margin="98,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" FontFamily="Lato" FontWeight="Bold"/>
+        <Label x:Name="userLblW" Content="" HorizontalAlignment="Left" Margin="199,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="95" FontFamily="Lato"/>
+        <Label x:Name="statusLblW" Content="" HorizontalAlignment="Left" Margin="52,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="46" FontFamily="Lato"/>
 
         <DockPanel>
-            <Menu DockPanel.Dock="Top" Height="34" VerticalAlignment="Top">
+            <Menu DockPanel.Dock="Top" Height="34" VerticalAlignment="Top" Background="#FFECEAB9">
                 <MenuItem Header="_Opcje" Width="43" Height="34" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <MenuItem Header="_Nowy lekarz" Click="nowyLekarz_Click" />
                     <MenuItem Header="_Pracownicy" Click="Pracownicy_Click"/>
                     <MenuItem Header="_Raporty" Click="Raport_Click"/>
                 </MenuItem>
             </Menu>
-            <Grid x:Name="PanelDodawanieLekarza" Height="381" VerticalAlignment="Top" Width="343">
-                <TextBox x:Name="imieLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="106,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="nazwiskoLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="106,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="peselLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="106,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="adresLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="106,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="telefonLekarza" HorizontalAlignment="Left" Height="23" Margin="106,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Button x:Name="ZapiszLekarza" Content="Zapisz" HorizontalAlignment="Left" Margin="129,194,0,0" VerticalAlignment="Top" Width="75" Click="ZapiszLekarza_Click"/>
-                <Label Content="Imie" HorizontalAlignment="Left" Margin="68,26,0,0" VerticalAlignment="Top" Height="23"/>
-                <Label Content="Nazwisko" HorizontalAlignment="Left" Margin="41,54,0,0" VerticalAlignment="Top" Height="23"/>
-                <Label Content="PESEL" HorizontalAlignment="Left" Margin="60,82,0,0" VerticalAlignment="Top" Height="23"/>
-                <Label Content="Adres" HorizontalAlignment="Left" Margin="60,110,0,0" VerticalAlignment="Top" Height="23"/>
-                <Label Content="Numer telefonu" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Height="23"/>
-                <Label Content="Stanowisko" HorizontalAlignment="Left" Margin="31,166,0,0" VerticalAlignment="Top" Height="23"/>
-                <ComboBox x:Name="StanowiskoBox" HorizontalAlignment="Left" Margin="106,166,0,0" VerticalAlignment="Top" Width="120">
+            <Grid x:Name="PanelDodawanieLekarza" Height="381" VerticalAlignment="Top" Width="343" Visibility="Collapsed">
+                <TextBox x:Name="imieLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="34,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="nazwiskoLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="184,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="peselLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="34,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="adresLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="184,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="telefonLekarza" HorizontalAlignment="Left" Height="23" Margin="34,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Button x:Name="ZapiszLekarza" Content="ZAPISZ" HorizontalAlignment="Left" Margin="35,265,0,0" VerticalAlignment="Top" Width="120" Click="ZapiszLekarza_Click" Background="#FFC6E377" FontFamily="Lato" Height="33" FontSize="16"/>
+                <Label Content="Imie" HorizontalAlignment="Left" Margin="34,23,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>
+                <Label Content="Nazwisko" HorizontalAlignment="Left" Margin="184,23,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>
+                <Label Content="PESEL" HorizontalAlignment="Left" Margin="34,79,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>
+                <Label Content="Adres" HorizontalAlignment="Left" Margin="184,79,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>
+                <Label Content="Numer telefonu" HorizontalAlignment="Left" Margin="34,137,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>
+                <Label Content="Stanowisko" HorizontalAlignment="Left" Margin="184,138,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>
+                <ComboBox x:Name="StanowiskoBox" HorizontalAlignment="Left" Margin="184,161,0,0" VerticalAlignment="Top" Width="120">
                     <ComboBoxItem Content="Recepcja"/>
                     <ComboBoxItem Content="Lekarz"/>
                 </ComboBox>
+                <Label Content="Login" HorizontalAlignment="Left" Margin="35,196,0,0" VerticalAlignment="Top" FontFamily="Lato" Padding="0,5,5,0" Cursor=""/>
+                <Label Content="Hasło" HorizontalAlignment="Left" Margin="184,196,0,0" VerticalAlignment="Top" FontFamily="Lato" Padding="0,5,5,0"/>
+                <TextBox x:Name="loginLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="35,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="hasloLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="184,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             </Grid>
-            <Grid x:Name="PanelRaportów" Width="343" Panel.ZIndex="1">
+            <Grid x:Name="PanelRaportów" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
             </Grid>
-            <Grid x:Name="PanelPracownikow" Width="343" Panel.ZIndex="1">
-                <DataGrid x:Name="PracownicyView" Height="314" Margin="10,10,11,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False">
+            <Grid x:Name="PanelPracownikow" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
+                <DataGrid x:Name="PracownicyView" Height="314" Margin="-135,10,-135,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False" HorizontalAlignment="Left" Width="613">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Imie" Binding="{Binding imie}" />

@@ -47,6 +47,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             PanelDodawanieLekarza.Visibility = Visibility.Visible;
             PanelPracownikow.Visibility = Visibility.Collapsed;
             PanelPracownikow.Visibility = Visibility.Collapsed;
+            this.Width = 352.594;
+            this.Height = 450;
         }
 
         private void Raport_Click(object sender, RoutedEventArgs e)
@@ -54,6 +56,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             PanelPracownikow.Visibility = Visibility.Collapsed;
             PanelRaportów.Visibility = Visibility.Visible;
             PanelDodawanieLekarza.Visibility = Visibility.Collapsed;
+            this.Width = 352.594;
+            this.Height = 450;
         }
 
         private void Pracownicy_Click(object sender, RoutedEventArgs e)
@@ -62,6 +66,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             PanelPracownikow.Visibility = Visibility.Visible;
             PanelRaportów.Visibility = Visibility.Collapsed;
             PanelDodawanieLekarza.Visibility = Visibility.Collapsed;
+            this.Width = 652.594;
+            this.Height = 450;
         } 
 
         private void ZapiszLekarza_Click(object sender, RoutedEventArgs e)
