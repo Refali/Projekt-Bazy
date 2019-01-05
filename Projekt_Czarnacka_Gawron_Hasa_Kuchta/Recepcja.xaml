@@ -39,7 +39,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <DatePicker x:Name="DataTxt" HorizontalAlignment="Left" Margin="35,155,0,0" VerticalAlignment="Top" Width="120" DisplayDate="2018-12-30" Height="24" />
+                <DatePicker x:Name="DataTxt" HorizontalAlignment="Left" Margin="35,155,0,0" VerticalAlignment="Top" Width="120" Height="24" />
 
                 <Button x:Name="ZapiszWizyte" Content="ZAPISZ" HorizontalAlignment="Left" Margin="35,210,0,0" VerticalAlignment="Top" Width="120" Click="ZapiszWizyte_Click" FontFamily="Lato" Background="#FFC6E377" Height="33" FontSize="16"/>
                 <Label Content="Pacjent" HorizontalAlignment="Left" Margin="35,75,0,0" VerticalAlignment="Top" Height="28" FontFamily="Lato" Padding="0,5,5,0" Width="44"/>
@@ -49,19 +49,19 @@
                 <ComboBox x:Name="PacjentListBox" HorizontalAlignment="Left" Margin="35,99,0,0" VerticalAlignment="Top" Width="120" Height="22"/>
                 <ComboBox x:Name="LekarzListBox" HorizontalAlignment="Left" Margin="185,99,0,0" VerticalAlignment="Top" Width="120" Height="22"/>
                 <ComboBox x:Name="GodzinaListBox" HorizontalAlignment="Left" Margin="185,155,0,0" VerticalAlignment="Top" Width="120" Height="22">
-                    <ComboBoxItem Content="10:00" IsSelected="True"/>
-                    <ComboBoxItem Content="11:00"/>
-                    <ComboBoxItem Content="12:00"/>
-                    <ComboBoxItem Content="13:00"/>
-                    <ComboBoxItem Content="14:00"/>
-                    <ComboBoxItem Content="15:00"/>
-                    <ComboBoxItem Content="16:00"/>
-                    <ComboBoxItem Content="17:00"/>
-                    <ComboBoxItem Content="18:00"/>
+                    <ComboBoxItem Content="10:00" Name="dziesiata" IsSelected="True"/>
+                    <ComboBoxItem Content="11:00" Name="jedenasta"/>
+                    <ComboBoxItem Content="12:00" Name="dwunasta"/>
+                    <ComboBoxItem Content="13:00" Name="trzynasta"/>
+                    <ComboBoxItem Content="14:00" Name="czternasta"/>
+                    <ComboBoxItem Content="15:00" Name="pietnasta"/>
+                    <ComboBoxItem Content="16:00" Name="szesnasta"/>
+                    <ComboBoxItem Content="17:00" Name="siedemnasta"/>
+                    <ComboBoxItem Content="18:00" Name="osiemnasta"/>
                 </ComboBox>
 
             </Grid>
-            <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Visible">
+            <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
                 <DataGrid x:Name="WizytyView" Margin="22,10,-272,0" AutoGenerateColumns="false" CanUserAddRows="false" Height="314" VerticalAlignment="Top">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}" IsReadOnly="True"/>

@@ -120,7 +120,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                         id_pacjenta = readerPac.GetInt32(0);
                     }
                 }
-                MessageBox.Show(id_pacjenta.ToString());
+
                 readerPac.Close();
                 //znalezienie id lekarza
                 SqlCommand queryLekarza = new SqlCommand();
@@ -184,6 +184,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             }
             readerSprawdzeniePacjenta.Close();
         }
+
         //dodanie wizyty
         void DodawanieWizyty()
         {
@@ -191,8 +192,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             SprawdzanieWizyty();
             try
             {
-                
-                MessageBox.Show(ilosc.ToString());
+
                 if (ilosc == 0)
                 {
 
@@ -221,7 +221,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 }
                 else
                 {
-                    MessageBox.Show("Jest już utworzona wizyta na tą datę");
+                    MessageBox.Show("Jest już utworzona wizyta na tą datę i godzinę");
                     
                 }
                 
@@ -332,6 +332,9 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             }
 
         }
+
+    
+
         //uzupełnienie listy Pacjentów w dodawaniu wizyty
         void fill_LekarzListBox() 
         {

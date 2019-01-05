@@ -31,7 +31,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             {
                 connString = new SqlConnectionStringBuilder();
                 connString.InitialCatalog = "Firma";
-                //connString.DataSource = "DESKTOP-70K18SL\\SQLEXPRESS";
+                
                 connString.DataSource = "localhost";
                 connString.IntegratedSecurity = true;
                 conn = new SqlConnection(connString.ConnectionString);
