@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Projekt_Czarnacka_Gawron_Hasa_Kuchta"
         mc:Ignorable="d"
-        Title="Recepcja" Height="471" Width="352.594" Icon="logo.png" Background="#FFFBFAD3" ResizeMode="CanMinimize">
+        Title="Recepcja" Height="471" Width="352.594" Icon="logo.png" Background="#FFFBFAD3" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Label Content="Status:" HorizontalAlignment="Left" Margin="10,406,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" FontWeight="Bold" FontFamily="Lato"/>

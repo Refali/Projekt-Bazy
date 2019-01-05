@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Projekt_Czarnacka_Gawron_Hasa_Kuchta"
         mc:Ignorable="d"
-        Title="Wlasciciel" Height="450" Width="352.594" Background="#FFFBFAD3" Icon="logo.png" ResizeMode="CanMinimize">
+        Title="Wlasciciel" Height="450" Width="352.594" Background="#FFFBFAD3" Icon="logo.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Status:" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" FontFamily="Lato" FontWeight="Bold"/>
         <Label Content="Zalogowano jako:" HorizontalAlignment="Left" Margin="98,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" FontFamily="Lato" FontWeight="Bold"/>
@@ -43,6 +43,8 @@
                 <TextBox x:Name="hasloLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="184,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             </Grid>
             <Grid x:Name="PanelRaportów" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
+                <Button x:Name="btn_generuj" Content="Button" HorizontalAlignment="Left" Margin="67,126,0,0" VerticalAlignment="Top" Width="120" Height="30" Click="Btn_generuj_Click"/>
+                <ComboBox x:Name="cb_okres" HorizontalAlignment="Left" Margin="67,78,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0"/>
             </Grid>
             <Grid x:Name="PanelPracownikow" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
                 <DataGrid x:Name="PracownicyView" Height="314" Margin="-135,10,-135,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False" HorizontalAlignment="Left" Width="613">

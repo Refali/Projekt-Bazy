@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Projekt_Czarnacka_Gawron_Hasa_Kuchta"
         mc:Ignorable="d"
-        Title="Lekarz" Height="464" Width="670.594" Background="#FFFBFAD3" Icon="logo.png" MinWidth="352.594" MinHeight="458">
+        Title="Lekarz" Height="464" Width="670.594" Background="#FFFBFAD3" Icon="logo.png" MinWidth="352.594" MinHeight="458" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Status:" Margin="10,0,0,20" Panel.ZIndex="1000" FontFamily="Lato" FontWeight="Bold" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="46"/>
         <Label Content="Zalogowano jako:" Margin="103,0,0,20" Panel.ZIndex="1000" FontFamily="Lato" FontWeight="Bold" HorizontalAlignment="Left" Width="104" Height="24" VerticalAlignment="Bottom"/>
@@ -13,7 +13,7 @@
         <Label x:Name="statusLbl" Content="" HorizontalAlignment="Left" Margin="52,0,0,20" Panel.ZIndex="1000" Width="46" FontFamily="Lato" Height="24" VerticalAlignment="Bottom"/>
 
         <DockPanel>
-            <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Visible" Background="#FFFBFAD3">
+            <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Collapsed" Background="#FFFBFAD3">
                 <DataGrid x:Name="WizytyView" Height="314" Margin="-141,10,-141,0" VerticalAlignment="Top" AutoGenerateColumns="false" CanUserAddRows="false" FontFamily="Lato" Width="Auto">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}" IsReadOnly="True"/>
