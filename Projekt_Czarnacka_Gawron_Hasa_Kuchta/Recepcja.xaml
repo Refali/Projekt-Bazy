@@ -23,11 +23,11 @@
                 </MenuItem>
             </Menu>
             <Grid x:Name="PanelDodawaniePacjenta" Height="381" VerticalAlignment="Top" Width="343" Visibility="Collapsed" Panel.ZIndex="1">
-                <TextBox x:Name="imiePacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="39,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="nazwiskoPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="189,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="peselPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="39,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="adresPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="189,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="telefonPacjenta" HorizontalAlignment="Left" Height="23" Margin="39,198,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="imiePacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="39,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyUp="PressEnterdod"/>
+                <TextBox x:Name="nazwiskoPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="189,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyUp="PressEnterdod"/>
+                <TextBox x:Name="peselPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="39,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyUp="PressEnterdod"/>
+                <TextBox x:Name="adresPacjentaTxt" HorizontalAlignment="Left" Height="23" Margin="189,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyUp="PressEnterdod"/>
+                <TextBox x:Name="telefonPacjenta" HorizontalAlignment="Left" Height="23" Margin="39,198,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyUp="PressEnterdod"/>
                 <Button x:Name="ZapiszPacjenta" Content="ZAPISZ" HorizontalAlignment="Left" Margin="39,255,0,0" VerticalAlignment="Top" Width="120" Click="ZapiszPacjenta_Click" Background="#FFC6E377" Height="33" FontFamily="Lato" FontSize="16"/>
                 <Label Content="Imie" HorizontalAlignment="Left" Margin="39,58,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>
                 <Label Content="Nazwisko" HorizontalAlignment="Left" Margin="189,58,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>

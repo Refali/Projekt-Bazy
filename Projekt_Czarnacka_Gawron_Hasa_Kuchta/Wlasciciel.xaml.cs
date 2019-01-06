@@ -22,7 +22,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 {
     public partial class Wlasciciel : Window
     {
-        int liczbaPracownikow,i;
+        int i;
         SqlDataAdapter dataAdapterWl, dataAdapterPracownicy, dataAdapterExcel;
         DataSet dswl;
         DataTable dt, excel_dt;
@@ -84,7 +84,6 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void ZapiszLekarza_Click(object sender, RoutedEventArgs e)
         {
-            idLekarza();
             DodawaniePracownika();
         }
         void status()
@@ -112,19 +111,37 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             }
 
         }
+
+        private void PressEnter(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                DodawaniePracownika();
+            }
+        }
+
         void SprawdzeniePracownika()
         {
             i = 0;
             SqlCommand querySprawdzeniePracownika = new SqlCommand();
-            string polecenieSprawdzeniePracownika = "select pesel from Pracownicy where pesel=@pesel";
+            string polecenieSprawdzeniePracownika = "select login,pesel from Pracownicy where pesel=@pesel OR login=@login";
             querySprawdzeniePracownika.Parameters.AddWithValue("@pesel",peselLekarzaTxt.Text);
+            querySprawdzeniePracownika.Parameters.AddWithValue("@login",loginLekarzaTxt.Text);
             querySprawdzeniePracownika.CommandText = polecenieSprawdzeniePracownika;
             querySprawdzeniePracownika.Connection = conn;
 
             SqlDataReader readerSprawdzeniePracownika= querySprawdzeniePracownika.ExecuteReader();
 
-            while (readerSprawdzeniePracownika.Read())
+            while (readerSprawdzeniePracownika.Read() && i == 0)
             {
+                if(readerSprawdzeniePracownika.GetString(0) == loginLekarzaTxt.Text)
+                {
+                    MessageBox.Show("Już istnieje taki pracownik o takim loginie");
+                }
+                if(readerSprawdzeniePracownika.GetString(1) == peselLekarzaTxt.Text)
+                {
+                    MessageBox.Show("Już istnieje taki pracownik o taki peselu");
+                }
                 i++;
 
             }
@@ -208,22 +225,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             }
         }
 
-        void idLekarza()
-        {
-            try
-            {
-                SqlCommand query = new SqlCommand();
-                string polecenie = "Select count(*) from Pracownicy";
-                query.CommandText = polecenie;
-                query.Connection = conn;
-                liczbaPracownikow = (int)query.ExecuteScalar();
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        
 
         void DodawaniePracownika()
         {
@@ -238,22 +240,10 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                     drwl["pesel"] = peselLekarzaTxt.Text;
                     drwl["adres"] = adresLekarzaTxt.Text;
                     drwl["telefon"] = telefonLekarza.Text;
-                    switch (StanowiskoBox.SelectionBoxItem)
-                    {
-                        case "Lekarz":
-                            idLekarza();
-                            liczbaPracownikow++;
-                            drwl["stanowisko"] = "Lekarz";
-                            drwl["login"] = "lek" + liczbaPracownikow; //unikalne logowanie potrzebne do logowania 
-                            drwl["haslo"] = "lek" + liczbaPracownikow;
-                            break;
-                        case "Recepcja":
-                            drwl["stanowisko"] = "Recepcjonistka";
-                            drwl["login"] = "rec";
-                            drwl["haslo"] = "rec";
-                            break;
-                    }
-
+                    drwl["stanowisko"] = StanowiskoBox.SelectionBoxItem;
+                    drwl["login"] = loginLekarzaTxt.Text;
+                    drwl["haslo"] = hasloLekarzaTxt.Text;
+                    
 
                     dswl.Tables["Pracownicy"].Rows.Add(drwl);
                 }
@@ -271,10 +261,6 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 {
                     MessageBox.Show(exc.Message);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Już istnieje taki pracownik");
             }
 
         }

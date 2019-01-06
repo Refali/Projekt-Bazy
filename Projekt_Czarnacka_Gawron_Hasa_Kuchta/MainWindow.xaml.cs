@@ -27,26 +27,36 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
+            logow();
+        }
+
+        private void UserTxt_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                logow();
+            }
+        }
+
+        private void logow()
+        {
             try
             {
                 connString = new SqlConnectionStringBuilder();
                 connString.InitialCatalog = "Firma";
 
-                //connString.DataSource = "localhost";
-                connString.DataSource = @"DESKTOP-SLTS1AQ\SQLEXPRESS";
+                connString.DataSource = "localhost";
+                //connString.DataSource = @"DESKTOP-SLTS1AQ\SQLEXPRESS";
 
                 connString.IntegratedSecurity = true;
                 conn = new SqlConnection(connString.ConnectionString);
                 conn.Open();
 
-
-
-                if (userTxt.Text.Substring(0, 3) == "lek") { idLekarza = userTxt.Text.Substring(3); }
-
+                
                 SqlCommand query = new SqlCommand();
-                string polecenie = "Select Stanowisko from Pracownicy where login=@login and haslo=@password"; 
+                string polecenie = "Select Stanowisko,id from Pracownicy where login=@login and haslo=@password";
 
-                query.Parameters.AddWithValue("@login", userTxt.Text); 
+                query.Parameters.AddWithValue("@login", userTxt.Text);
                 query.Parameters.AddWithValue("@password", passwordTxt.Password);
                 query.CommandText = polecenie;
                 query.Connection = conn;
@@ -60,12 +70,13 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 {
                     ilosc++;
                     stanowisko = reader.GetString(0).Replace(" ", "");
+                    idLekarza = reader.GetInt32(1).ToString();
                 }
                 reader.Close();
-               
+
                 if (ilosc >= 1)
                 {
-                    if (stanowisko == "Recepcjonistka")
+                    if (stanowisko == "Recepcjonistka" || stanowisko == "Recepcja")
                     {
                         Recepcja recepcjaOkno = new Recepcja(conn, userTxt.Text);
                         recepcjaOkno.Show();
@@ -73,7 +84,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                     }
                     else if (stanowisko == "Lekarz")
                     {
-                        Lekarz lekarzOkno = new Lekarz(conn,userTxt.Text,idLekarza);
+                        Lekarz lekarzOkno = new Lekarz(conn, userTxt.Text, idLekarza);
                         lekarzOkno.Show();
                         this.Close();
                     }
@@ -86,18 +97,17 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                     else
                     {
                         conn.Close();
-                        
+
                     }
                 }
 
                 userTxt.Clear();
                 passwordTxt.Clear();
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
     }
 }

@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="Denta-Profil" Height="434.805" Width="456.5" ResizeMode="CanMinimize" Icon="logo.png" FontFamily="Lato" FontSize="14" WindowStartupLocation="CenterScreen">
     <Grid Background="#FFFBFAD3">
-        <TextBox x:Name="userTxt" HorizontalAlignment="Left" Height="24" Margin="163,246,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="userTxt" HorizontalAlignment="Left" Height="24" Margin="163,246,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyUp="UserTxt_KeyUp"/>
         <Label Content="Nazwa użytkownika" HorizontalAlignment="Left" Margin="163,224,0,0" VerticalAlignment="Top" FontFamily="Lato" Padding="0,5,5,0" FontSize="14"/>
         <Label Content="Hasło" HorizontalAlignment="Left" Margin="163,273,0,0" VerticalAlignment="Top" FontFamily="Lato" Padding="0,5,5,0" FontSize="14"/>
-        <PasswordBox x:Name="passwordTxt" HorizontalAlignment="Left" Margin="163,295,0,0" VerticalAlignment="Top" Width="120" Height="24"/>
+        <PasswordBox x:Name="passwordTxt" HorizontalAlignment="Left" Margin="163,295,0,0" VerticalAlignment="Top" Width="120" Height="24" KeyUp="UserTxt_KeyUp"/>
         <Button x:Name="loginBtn" Content="ZALOGUJ" HorizontalAlignment="Left" Margin="163,332,0,0" VerticalAlignment="Top" Width="120" Click="LoginBtn_Click" Background="#FFC6E377" FontFamily="Lato" Height="34" FontSize="16"/>
         <Image Margin="0,18,65,0" Source="asd.png" Stretch="Fill" HorizontalAlignment="Right" Width="319" Height="172" VerticalAlignment="Top"/>
 

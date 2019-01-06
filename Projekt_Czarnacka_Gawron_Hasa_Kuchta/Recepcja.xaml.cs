@@ -333,7 +333,15 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         }
 
-    
+        private void PressEnterdod(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                DodawaniePacjenta();
+            }
+        }
+
+
 
         //uzupełnienie listy Pacjentów w dodawaniu wizyty
         void fill_LekarzListBox() 
