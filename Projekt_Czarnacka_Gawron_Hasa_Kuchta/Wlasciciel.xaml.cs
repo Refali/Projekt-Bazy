@@ -13,10 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Data;
+using System.IO;
 
 using Excel = Microsoft.Office.Interop.Excel;
-using System.Diagnostics;
-using System.ComponentModel;
+using System.Runtime.InteropServices;
 
 namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 {
@@ -151,78 +151,88 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void Btn_generuj_Click(object sender, RoutedEventArgs e)
         {
-            /*
-             * Muszę tutaj dodać jeszcze odnośniki do poszczególnych miesięcy 
-             * ale muszę przemyśleć zapytanie sql 
-             * w senie zrobić użytek z tego comboboxa 
-            */
-
-            //zamiana danych z sql na obiekt datatable
-            string excel_command_string = "Select Pac.imie + ' ' + Pac.nazwisko as 'Pacjent', Pac.pesel as 'Pesel', P.imie + ' ' + P.nazwisko as 'Lekarz'," +
-                                            " W.data as 'Data', W.godzina as 'Godzina', W.status as 'Status wizyty'" +
-                                            "from Wizyty W JOIN Pracownicy P ON W.id_lekarza = P.id Join Pacjenci Pac ON w.id_pacjenta = Pac.id";
-            SqlCommand excel_command = new SqlCommand(excel_command_string, conn);
-            dataAdapterExcel = new SqlDataAdapter(excel_command);
-            excel_dt = new DataTable();
-            //wypełnienie obiektu datatable
-            excel_dt.Load(excel_command.ExecuteReader());
-
-            Excel.Application excel_object;
-            Excel.Workbook excel_workbook;
-            Excel.Worksheet excel_worksheet;
-            Excel.Range excel_range;
-            Excel.Borders excel_border, excel_rows_border;
-
-            //utworzenie(wystartowanie) nowego "arkusza" excela
-            excel_object = new Excel.Application();
-
-            //nowy plik zestaw excela
-            excel_workbook = excel_object.Workbooks.Add(Type.Missing);
-
-            excel_worksheet = (Excel.Worksheet)excel_workbook.ActiveSheet;
-            excel_worksheet.Name = "Raport";
-
-            //wypełnianie i formatowanie komórek
-            for (int i = 1; i < excel_dt.Columns.Count + 1; i++)
+           
+            string excel_file = "C:\\Users\\" + Environment.UserName + "\\Desktop\\Raport z dnia " + DateTime.Now.ToShortDateString() + ".xlsx";
+            try
             {
-                excel_range = (Excel.Range)excel_object.Cells[1, i];
-                excel_border = excel_range.Borders;
-                excel_border.LineStyle = Excel.XlLineStyle.xlContinuous;
-                excel_border.Weight = 3;
-                excel_range.Font.Bold = true;
-                excel_range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-
-                excel_object.Cells[1, i] = excel_dt.Columns[i - 1].ColumnName;
-            }
-
-            for (int i = 0; i < excel_dt.Rows.Count; i++)
-            {
-                for (int j = 0; j < excel_dt.Columns.Count; j++)
+                if (File.Exists(excel_file) == false)
                 {
-                    if (excel_dt.Rows[i][j] != null)
-                    {
-                        excel_range = (Excel.Range)excel_object.Cells[i + 2, j + 1];
-                        excel_rows_border = excel_range.Borders;
-                        excel_rows_border.LineStyle = Excel.XlLineStyle.xlContinuous;
-                        excel_rows_border.Weight = 2;
+                    //zamiana danych z sql na obiekt datatable
+                    string excel_command_string = "Select Pac.imie + ' ' + Pac.nazwisko as 'Pacjent', Pac.pesel as 'Pesel', P.imie + ' ' + P.nazwisko as 'Lekarz'," +
+                                                    " W.data as 'Data', W.godzina as 'Godzina', W.status as 'Status wizyty'" +
+                                                    "from Wizyty W JOIN Pracownicy P ON W.id_lekarza = P.id Join Pacjenci Pac ON w.id_pacjenta = Pac.id";
+                    SqlCommand excel_command = new SqlCommand(excel_command_string, conn);
+                    dataAdapterExcel = new SqlDataAdapter(excel_command);
+                    excel_dt = new DataTable();
+                    //wypełnienie obiektu datatable
+                    excel_dt.Load(excel_command.ExecuteReader());
 
-                        excel_object.Cells[i + 2, j + 1] = excel_dt.Rows[i][j].ToString();
+                    Excel.Application excel_object;
+                    Excel.Workbook excel_workbook;
+                    Excel.Worksheet excel_worksheet;
+                    Excel.Range excel_range;
+                    Excel.Borders excel_border, excel_rows_border;
+
+                    //utworzenie(wystartowanie) nowego "arkusza" excela
+                    excel_object = new Excel.Application();
+
+                    //nowy plik zestaw excela
+                    excel_workbook = excel_object.Workbooks.Add(Type.Missing);
+
+                    excel_worksheet = (Excel.Worksheet)excel_workbook.ActiveSheet;
+                    excel_worksheet.Name = "Raport";
+
+                    //wypełnianie i formatowanie komórek
+                    for (int i = 1; i < excel_dt.Columns.Count + 1; i++)
+                    {
+                        excel_range = (Excel.Range)excel_object.Cells[1, i];
+                        excel_border = excel_range.Borders;
+                        excel_border.LineStyle = Excel.XlLineStyle.xlContinuous;
+                        excel_border.Weight = 3;
+                        excel_range.Font.Bold = true;
+                        excel_range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                        excel_object.Cells[1, i] = excel_dt.Columns[i - 1].ColumnName;
                     }
+
+                    for (int i = 0; i < excel_dt.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < excel_dt.Columns.Count; j++)
+                        {
+                            if (excel_dt.Rows[i][j] != null)
+                            {
+                                excel_range = (Excel.Range)excel_object.Cells[i + 2, j + 1];
+                                excel_rows_border = excel_range.Borders;
+                                excel_rows_border.LineStyle = Excel.XlLineStyle.xlContinuous;
+                                excel_rows_border.Weight = 2;
+
+                                excel_object.Cells[i + 2, j + 1] = excel_dt.Rows[i][j].ToString();
+                            }
+                        }
+                    }
+                    //automatyczne dopasowanie do tekstu
+                    excel_object.Columns.AutoFit();
+
+                
+                    //Environment.UserName pobiera nawzę użytkownika
+                    excel_object.ActiveWorkbook.SaveAs(excel_file);
+                    excel_workbook.Close(false);
+                    excel_object.Quit();
+
+                    Marshal.ReleaseComObject(excel_object);
+
+                    MessageBox.Show("Utworzono nowy raport na Twoim pulpicie");
+                }
+                else
+                {
+                    MessageBox.Show("Raport w danym dniu został już utworzony");
                 }
             }
-            //automatyczne dopasowanie do tekstu
-            excel_object.Columns.AutoFit();
-
-            //SaveCopyAs bo SaveAs sprawia że nie mogę otworzyć pliku
-            //Environment.UserName pobiera nawzę użytkownika
-            excel_object.ActiveWorkbook.SaveCopyAs("C:\\Users\\"+ Environment.UserName + "\\Desktop\\Raport z dnia " + DateTime.Now.ToShortDateString() + ".xlsx");
-            MessageBox.Show("Utworzono nowy raport na Twoim pulpicie");
-
-            //myślę nad innym spodobem na to ale jeszcze nie wiem
-            foreach (Process proc in System.Diagnostics.Process.GetProcessesByName("EXCEL"))
+            catch(Exception)
             {
-                proc.Kill();
+                MessageBox.Show("Wystąpił błąd");
             }
+
         }
 
         
