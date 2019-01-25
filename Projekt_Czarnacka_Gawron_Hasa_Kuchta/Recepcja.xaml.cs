@@ -431,6 +431,10 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             this.Height = 471;
         }
 
+        private void Wyloguj_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
         
         
         

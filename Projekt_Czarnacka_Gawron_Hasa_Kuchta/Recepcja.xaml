@@ -20,6 +20,7 @@
                     <MenuItem Header="_Nowa wizyta" Click="nowaWizyta_Click" />
                     <MenuItem Header="_Wizyty" Click="edycjaWizyty_Click" />
                     <MenuItem Header="_Pacjenci" Click="usunPacjenta_Click" />
+                    <MenuItem Header="_Wyloguj" Click="Wyloguj_Click" />
                 </MenuItem>
             </Menu>
             <Grid x:Name="PanelDodawaniePacjenta" Height="381" VerticalAlignment="Top" Width="343" Visibility="Collapsed" Panel.ZIndex="1">

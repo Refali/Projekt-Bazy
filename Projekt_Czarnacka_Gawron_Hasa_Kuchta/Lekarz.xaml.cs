@@ -81,5 +81,10 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             statusLbl.Content = conn.State.ToString();
             userLbl.Content = userName;
         }
+
+        private void Wyloguj_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

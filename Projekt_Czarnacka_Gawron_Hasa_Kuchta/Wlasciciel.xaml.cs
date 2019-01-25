@@ -214,11 +214,12 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                     excel_object.Columns.AutoFit();
 
                 
-                    //Environment.UserName pobiera nawzę użytkownika
+                    //zapis do pliku z podaną ścieżką
                     excel_object.ActiveWorkbook.SaveAs(excel_file);
+
+                    //zakmniecie excela oraz jego procesu 
                     excel_workbook.Close(false);
                     excel_object.Quit();
-
                     Marshal.ReleaseComObject(excel_object);
 
                     MessageBox.Show("Utworzono nowy raport na Twoim pulpicie");
@@ -273,8 +274,12 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 }
             }
 
+            
         }
 
-        
+        private void Wyloguj_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

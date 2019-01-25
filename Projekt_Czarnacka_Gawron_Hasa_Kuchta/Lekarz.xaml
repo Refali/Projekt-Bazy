@@ -13,8 +13,8 @@
         <Label x:Name="statusLbl" Content="" HorizontalAlignment="Left" Margin="52,0,0,20" Panel.ZIndex="1000" Width="46" FontFamily="Lato" Height="24" VerticalAlignment="Bottom"/>
 
         <DockPanel>
-            <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Collapsed" Background="#FFFBFAD3">
-                <DataGrid x:Name="WizytyView" Height="314" Margin="-141,10,-141,0" VerticalAlignment="Top" AutoGenerateColumns="false" CanUserAddRows="false" FontFamily="Lato" Width="Auto">
+            <Grid x:Name="PanelEdycjaWizyty" Width="657" Panel.ZIndex="1" Visibility="Visible" Background="#FFFBFAD3" Margin="0,2,0,-1.6">
+                <DataGrid x:Name="WizytyView" Height="235" Margin="28,99,26,0" VerticalAlignment="Top" AutoGenerateColumns="false" CanUserAddRows="false" FontFamily="Lato" Width="Auto">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Id Pacjenta" Binding="{Binding id_pacjenta}"  IsReadOnly="True"/>
@@ -25,7 +25,10 @@
                         <DataGridTextColumn Header="Uwagi" Binding="{Binding uwagi}" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button x:Name="ZapiszEdycje" Content="AKTUALIZUJ" HorizontalAlignment="Left" Margin="116,339,0,0" VerticalAlignment="Top" Width="114" Click="ZapiszEdycje_Click" Background="#FFC6E377" FontFamily="Lato" Height="35" FontSize="16"/>
+                <Button x:Name="ZapiszEdycje" Content="AKTUALIZUJ" HorizontalAlignment="Left" Margin="267,339,0,0" VerticalAlignment="Top" Width="114" Click="ZapiszEdycje_Click" Background="#FFC6E377" FontFamily="Lato" Height="35" FontSize="16"/>
+                <TextBox x:Name="txtWyszukaj" HorizontalAlignment="Left" Height="34" Margin="28,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158"/>
+                <Label Content="Wyszukaj" HorizontalAlignment="Left" Margin="28,25,0,0" VerticalAlignment="Top" Width="158"/>
+                <Button x:Name="btnWyloguj" Content="Wyloguj" HorizontalAlignment="Left" Margin="513,50,0,0" VerticalAlignment="Top" Width="118" Height="26"/>
             </Grid>
         </DockPanel>
     </Grid>

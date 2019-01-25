@@ -65,7 +65,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
                 int ilosc = 0;
                 string stanowisko = "";
-
+                
                 while (reader.Read())
                 {
                     ilosc++;
@@ -73,7 +73,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                     idLekarza = reader.GetInt32(1).ToString();
                 }
                 reader.Close();
-
+                
                 if (ilosc >= 1)
                 {
                     if (stanowisko == "Recepcjonistka" || stanowisko == "Recepcja")
@@ -109,5 +109,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 MessageBox.Show(ex.Message);
             }
         }
+
+        
+
     }
 }
