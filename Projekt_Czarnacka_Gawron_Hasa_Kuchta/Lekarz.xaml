@@ -18,7 +18,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Pacjent" Binding="{Binding Pacjent}"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Id Lekarza" Binding="{Binding Lekarz}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Lekarz" Binding="{Binding Lekarz}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Data" Binding="{Binding data, StringFormat='yyy-MM-dd'}" IsReadOnly="True" />
                         <DataGridTextColumn Header="Godzina" Binding="{Binding godzina}" IsReadOnly="True" />
                         <DataGridTextColumn Header="Status" Binding="{Binding status}" />

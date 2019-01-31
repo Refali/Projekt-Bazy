@@ -15,7 +15,7 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top" Height="34" VerticalAlignment="Top" Background="#FFECEAB9">
                 <MenuItem Header="_Opcje" Width="43" Height="34" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <MenuItem Header="_Nowy lekarz" Click="nowyLekarz_Click" />
+                    <MenuItem Header="_Nowy pracownik" Click="nowyLekarz_Click" />
                     <MenuItem Header="_Pracownicy" Click="Pracownicy_Click"/>
                     <MenuItem Header="_Raporty" Click="Raport_Click"/>
                     <MenuItem Header="_Wyloguj" Click="Wyloguj_Click" />

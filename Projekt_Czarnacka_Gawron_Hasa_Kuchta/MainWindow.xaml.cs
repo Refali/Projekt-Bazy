@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
+using System.Data;
+
 namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 {
     public partial class MainWindow : Window
@@ -50,7 +52,6 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
                 connString.IntegratedSecurity = true;
                 conn = new SqlConnection(connString.ConnectionString);
-                conn.Open();
 
                 
                 SqlCommand query = new SqlCommand();
@@ -61,21 +62,17 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 query.CommandText = polecenie;
                 query.Connection = conn;
 
-                SqlDataReader reader = query.ExecuteReader();
+                SqlDataAdapter adapter = new SqlDataAdapter(query);
+                DataTable Pracownicy = new DataTable();
+                adapter.Fill(Pracownicy);
 
-                int ilosc = 0;
+                int ilosc = Pracownicy.Rows.Count;
                 string stanowisko = "";
                 
-                while (reader.Read())
+               
+                if (ilosc == 1)
                 {
-                    ilosc++;
-                    stanowisko = reader.GetString(0).Replace(" ", "");
-                    idLekarza = reader.GetInt32(1).ToString();
-                }
-                reader.Close();
-                
-                if (ilosc >= 1)
-                {
+                    stanowisko = Pracownicy.Rows[0]["stanowisko"].ToString();
                     if (stanowisko == "Recepcjonistka" || stanowisko == "Recepcja")
                     {
                         Recepcja recepcjaOkno = new Recepcja(conn, userTxt.Text);
@@ -84,6 +81,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                     }
                     else if (stanowisko == "Lekarz")
                     {
+                        idLekarza = Pracownicy.Rows[0]["id"].ToString();
                         Lekarz lekarzOkno = new Lekarz(conn, userTxt.Text, idLekarza);
                         lekarzOkno.Show();
                         this.Close();

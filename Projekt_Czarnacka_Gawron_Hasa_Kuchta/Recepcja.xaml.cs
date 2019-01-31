@@ -24,19 +24,13 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         DataTable dt,dt2;
 
         string userName;
-        int id_pacjenta, id_lekarza;
+        string id_pacjenta;
+        string id_lekarza;
         int ilosc = 0;
         int iloscPacjenta = 0;
 
         List<ComboBoxItem> lista = new List<ComboBoxItem>(); //combobox
         
-
-        public enum Myenum
-        {
-            Zarezerwowana,
-            Anulowana,
-            Wykonana,
-        }
 
         public Recepcja()
         {
@@ -53,7 +47,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             status(); //status i zalogowano jako
 
             selecty(); //wszystkie potrzebne selecty
-            fill_DataGrid_Wizyty();
+            fill_DataGrid_Wizyty(); 
             fill_DataGrid_Pacjenci();
             fill_PacjentListBox(); //uzupełnienie listy Pacjentów w dodawaniu wizyty - wywołanie
             fill_LekarzListBox(); //uzupełnienie listy Lekarzy w dodawaniu wizyty - wywołanie
@@ -125,10 +119,11 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         //-----------------------------------------------------------//
 
         //sprawdzanie czy dana wizyta już istnieje
-        void SprawdzanieWizyty()
+        int SprawdzanieWizyty()
         {
             try
             {
+                
                 //znalezienie id pacjenta w bazie
                 SqlCommand queryPacjenta = new SqlCommand();
                 string polecenie = "Select id from Pacjenci where pesel like @peselPacjenta";
@@ -136,17 +131,14 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 queryPacjenta.Parameters.AddWithValue("@peselPacjenta", peselpacjenta);
                 queryPacjenta.CommandText = polecenie;
                 queryPacjenta.Connection = conn;
-
-                SqlDataReader readerPac = queryPacjenta.ExecuteReader();
-                if (readerPac.HasRows)
+                DataTable pacjenci = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter(queryPacjenta);
+                adapter.Fill(pacjenci);
+                if(pacjenci.Rows.Count > 0)
                 {
-                    while (readerPac.Read())
-                    {
-                        id_pacjenta = readerPac.GetInt32(0);
-                    }
+                    id_pacjenta = pacjenci.Rows[0]["id"].ToString();
                 }
 
-                readerPac.Close();
                 //znalezienie id lekarza
                 SqlCommand queryLekarza = new SqlCommand();
                 string polecenie2 = "Select id from Pracownicy where pesel like @peselPracownika and stanowisko like 'Lekarz'";
@@ -155,20 +147,18 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 queryLekarza.CommandText = polecenie2;
                 queryLekarza.Connection = conn;
 
-                SqlDataReader readerPrac = queryLekarza.ExecuteReader();
-                if (readerPrac.HasRows)
+                SqlDataAdapter adapterlekarz = new SqlDataAdapter(queryLekarza);
+                DataTable pracownicy = new DataTable();
+                adapterlekarz.Fill(pracownicy);
+                if (pracownicy.Rows.Count > 0)
                 {
-                    while (readerPrac.Read())
-                    {
-                        id_lekarza = readerPrac.GetInt32(0);
-                    }
+                    id_lekarza = pracownicy.Rows[0]["id"].ToString();
                 }
-                readerPrac.Close();
 
                 //sprawdzenie wizyty na podstawie dnia godziny i lekarza
                 ilosc = 0;
                 SqlCommand querySprawdzenieWizyt = new SqlCommand();
-                string polecenieSprawdzenieWizyt = "select data,godzina,id_lekarza,id_pacjenta from Wizyty where (data=@data and godzina=@godzina and id_lekarza=@id_lekarz) or (data=@data and godzina=@godzina and id_pacjenta=@id_pacjent)";
+                string polecenieSprawdzenieWizyt = "select id from Wizyty where data=@data and godzina=@godzina and (id_lekarza=@id_lekarz or id_pacjenta=@id_pacjent)";
                 querySprawdzenieWizyt.Parameters.AddWithValue("@data", DataTxt.SelectedDate.Value.ToString("yyyy-MM-dd"));
                 querySprawdzenieWizyt.Parameters.AddWithValue("@godzina", GodzinaListBox.SelectionBoxItem);
                 querySprawdzenieWizyt.Parameters.AddWithValue("@id_pacjent", id_pacjenta);
@@ -176,18 +166,15 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 querySprawdzenieWizyt.CommandText = polecenieSprawdzenieWizyt;
                 querySprawdzenieWizyt.Connection = conn;
 
-                SqlDataReader readerSprawdzenieWizyt = querySprawdzenieWizyt.ExecuteReader();
-
-                while (readerSprawdzenieWizyt.Read())
-                {
-                    ilosc++;
-
-                }
-                readerSprawdzenieWizyt.Close();
+                SqlDataAdapter adapterWizyty = new SqlDataAdapter(querySprawdzenieWizyt);
+                DataTable Wizyty = new DataTable();
+                adapterWizyty.Fill(Wizyty);
+                return Wizyty.Rows.Count;
             }
             catch(Exception exc)
             {
                 MessageBox.Show(exc.Message);
+                return 0;
             }
         }
         //sprawdzenie istnienia pacjenta na podstawie peselu
@@ -200,25 +187,21 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             querySprawdzeniePacjenta.CommandText = polecenieSprawdzeniePacjenta;
             querySprawdzeniePacjenta.Connection = conn;
 
-            SqlDataReader readerSprawdzeniePacjenta = querySprawdzeniePacjenta.ExecuteReader();
-
-            while (readerSprawdzeniePacjenta.Read())
-            {
-                iloscPacjenta++;
-
-            }
-            readerSprawdzeniePacjenta.Close();
+            DataTable pacjenci = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter(querySprawdzeniePacjenta);
+            adapter.Fill(pacjenci);
+            iloscPacjenta = pacjenci.Rows.Count;
+            
         }
 
         //dodanie wizyty
         void DodawanieWizyty()
         {
            
-            SprawdzanieWizyty();
             try
             {
 
-                if (ilosc == 0)
+                if (ilosc == SprawdzanieWizyty())
                 {
 
                     DataRow drw = dsw.Tables["Wizyty"].NewRow();
@@ -373,21 +356,23 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
 
 
-        //uzupełnienie listy Pacjentów w dodawaniu wizyty
+        //uzupełnienie listy Lekarzy w dodawaniu wizyty
         void fill_LekarzListBox() 
         {
             try
             {
                 string query = "select * from Pracownicy where stanowisko='lekarz'";
                 SqlCommand command = new SqlCommand(query, conn);
-                SqlDataReader dr = command.ExecuteReader();
-                while (dr.Read())
+                DataTable pracownicy = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(pracownicy);
+                for(int i = 0; i < pracownicy.Rows.Count; i++)
                 {
-                    string pesel = dr.GetString(3);
-                    string nazwisko = dr.GetString(2);
-                    LekarzListBox.Items.Add("PESEL: "+pesel+ " Nazwisko: " +nazwisko);
+                    string pesel = pracownicy.Rows[i]["pesel"].ToString();
+                    string nazwisko = pracownicy.Rows[i]["nazwisko"].ToString();
+                    LekarzListBox.Items.Add("PESEL: " + pesel + " Nazwisko: " + nazwisko);
                 }
-                dr.Close();
+                
             }
             catch (Exception exc)
             {
@@ -411,21 +396,23 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
 
 
-        //uzupełnienie listy Lekarzy w dodawaniu wizyty
+        //uzupełnienie listy pacjentów w dodawaniu wizyty
         void fill_PacjentListBox() 
         {
             try
             {
                 string query = "select * from Pacjenci";
                 SqlCommand command = new SqlCommand(query, conn);
-                SqlDataReader dr = command.ExecuteReader();
-                while (dr.Read())
+                DataTable pacjenci = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(pacjenci);
+                for (int i = 0; i < pacjenci.Rows.Count; i++)
                 {
-                    string pesel = dr.GetString(3);
-                    string nazwisko = dr.GetString(2);
+                    string pesel = pacjenci.Rows[i]["pesel"].ToString();
+                    string nazwisko = pacjenci.Rows[i]["nazwisko"].ToString();
                     PacjentListBox.Items.Add("PESEL: " + pesel + " Nazwisko: " + nazwisko);
                 }
-                dr.Close();
+                
             }
             catch(Exception exc)
             {

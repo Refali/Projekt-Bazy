@@ -22,7 +22,6 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 {
     public partial class Wlasciciel : Window
     {
-        int i;
         SqlDataAdapter dataAdapterWl, dataAdapterPracownicy, dataAdapterExcel;
         DataSet dswl;
         DataTable dt, excel_dt;
@@ -120,9 +119,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             }
         }
 
-        void SprawdzeniePracownika()
+        int SprawdzeniePracownika()
         {
-            i = 0;
             SqlCommand querySprawdzeniePracownika = new SqlCommand();
             string polecenieSprawdzeniePracownika = "select login,pesel from Pracownicy where pesel=@pesel OR login=@login";
             querySprawdzeniePracownika.Parameters.AddWithValue("@pesel",peselLekarzaTxt.Text);
@@ -130,23 +128,23 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             querySprawdzeniePracownika.CommandText = polecenieSprawdzeniePracownika;
             querySprawdzeniePracownika.Connection = conn;
 
-            SqlDataReader readerSprawdzeniePracownika= querySprawdzeniePracownika.ExecuteReader();
+            SqlDataAdapter adapter = new SqlDataAdapter(querySprawdzeniePracownika);
+            DataTable pracownicy = new DataTable();
+            adapter.Fill(pracownicy);
 
-            while (readerSprawdzeniePracownika.Read() && i == 0)
+            if(pracownicy.Rows.Count > 0)
             {
-                if(readerSprawdzeniePracownika.GetString(0) == loginLekarzaTxt.Text)
+                if (pracownicy.Rows[0]["login"].ToString() == loginLekarzaTxt.Text)
                 {
                     MessageBox.Show("Już istnieje taki pracownik o takim loginie");
                 }
-                if(readerSprawdzeniePracownika.GetString(1) == peselLekarzaTxt.Text)
+                if (pracownicy.Rows[0]["pesel"].ToString() == peselLekarzaTxt.Text)
                 {
                     MessageBox.Show("Już istnieje taki pracownik o taki peselu");
                 }
-                i++;
-
             }
-            readerSprawdzeniePracownika.Close();
 
+            return pracownicy.Rows.Count;
         }
 
         private void EdytujPracownikaBtn_Click(object sender, RoutedEventArgs e)
@@ -280,8 +278,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         void DodawaniePracownika()
         {
-            SprawdzeniePracownika();
-            if (i == 0)
+            
+            if (SprawdzeniePracownika() == 0)
             {
                 try
                 {
@@ -312,6 +310,13 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 {
                     MessageBox.Show(exc.Message);
                 }
+                imieLekarzaTxt.Clear();
+                nazwiskoLekarzaTxt.Clear();
+                peselLekarzaTxt.Clear();
+                adresLekarzaTxt.Clear();
+                telefonLekarza.Clear();
+                loginLekarzaTxt.Clear();
+                hasloLekarzaTxt.Clear();
             }
 
             
