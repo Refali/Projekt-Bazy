@@ -41,7 +41,9 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             try
             {
                 SqlCommand cmd = new SqlCommand();
-                string polecenie = "select * from Wizyty where id_lekarza=@idlekarza";
+                //string polecenie = "select * from Wizyty where id_lekarza=@idlekarza ";
+                string polecenie = "select W.id, P.imie + ' ' + P.nazwisko as 'Lekarz', Pa.imie + ' ' + Pa.nazwisko as 'Pacjent', W.data, W.godzina, w.status, w.uwagi from Wizyty W JOIN Pracownicy P on W.id_lekarza = P.id Join Pacjenci PA on PA.id = W.id_pacjenta where id_lekarza = @idlekarza ";
+                
                 cmd.CommandText = polecenie;
                 cmd.Parameters.AddWithValue("@idlekarza",idLekarza);
                 cmd.Connection = conn;
@@ -65,9 +67,22 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 DataTable zmiany = dt.GetChanges();
                 if (zmiany != null)
                 {
-                    SqlCommandBuilder zmianyUpdate = new SqlCommandBuilder(dataAdapterEdycjaWizyt);
-                    int zmienioneWiersze = dataAdapterEdycjaWizyt.Update(zmiany);
+                    for(int i = 0; i < zmiany.Rows.Count; i++)
+                    {
+                        SqlCommand command = new SqlCommand();
+                        command.CommandText = "UPDATE wizyty Set Status = @Status, Uwagi=@Uwagi where id=@id";
+                        command.Connection = conn;
+                        command.Parameters.AddWithValue("@Status", zmiany.Rows[i]["Status"]);
+                        command.Parameters.AddWithValue("@Uwagi", zmiany.Rows[i]["Uwagi"]);
+                        command.Parameters.AddWithValue("@id", zmiany.Rows[i]["id"]);
+
+                        //SqlCommandBuilder zmianyUpdate = new SqlCommandBuilder(dataAdapterEdycjaWizyt);
+                        dataAdapterEdycjaWizyt.UpdateCommand = command;
+                        dataAdapterEdycjaWizyt.Update(zmiany);
+
+                    }
                     dt.AcceptChanges();
+                    Label_WizytyZmiany.Visibility = Visibility.Hidden;
                 }
             }
             catch (Exception ex)
@@ -82,9 +97,19 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             userLbl.Content = userName;
         }
 
+        private void WizytyView_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            Label_WizytyZmiany.Visibility = Visibility.Visible;
+        }
+
         private void Wyloguj_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MessageBoxResult.Yes == MessageBox.Show("Czy na pewno?", "Wyloguj", MessageBoxButton.YesNo))
+            {
+                MainWindow main = new MainWindow();
+                main.Show();
+                this.Close();
+            }
         }
     }
 }

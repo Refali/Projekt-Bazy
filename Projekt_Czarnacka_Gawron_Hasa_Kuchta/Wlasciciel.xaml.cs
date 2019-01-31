@@ -149,6 +149,46 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         }
 
+        private void EdytujPracownikaBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DataTable zmiany = dt.GetChanges();
+                if (zmiany != null)
+                {
+                    for (int i = 0; i < zmiany.Rows.Count; i++)
+                    {
+                        SqlCommand command = new SqlCommand();
+                        command.CommandText = "UPDATE Pracownicy Set imie = @imie, nazwisko=@nazwisko, adres=@adres, telefon=@telefon, stanowisko=@stanowisko, login=@login, haslo=@haslo where id=@id";
+                        command.Connection = conn;
+                        command.Parameters.AddWithValue("@imie", zmiany.Rows[i]["imie"]);
+                        command.Parameters.AddWithValue("@nazwisko", zmiany.Rows[i]["nazwisko"]);
+                        command.Parameters.AddWithValue("@adres", zmiany.Rows[i]["adres"]);
+                        command.Parameters.AddWithValue("@telefon", zmiany.Rows[i]["telefon"]);
+                        command.Parameters.AddWithValue("@stanowisko", zmiany.Rows[i]["stanowisko"]);
+                        command.Parameters.AddWithValue("@login", zmiany.Rows[i]["login"]);
+                        command.Parameters.AddWithValue("@haslo", zmiany.Rows[i]["haslo"]);
+                        command.Parameters.AddWithValue("@id", zmiany.Rows[i]["id"]);
+
+                        //SqlCommandBuilder zmianyUpdate = new SqlCommandBuilder(dataAdapterEdycjaWizyt);
+                        dataAdapterPracownicy.UpdateCommand = command;
+                        dataAdapterPracownicy.Update(zmiany);
+                    }
+                    dt.AcceptChanges();
+                    Label_PracownicyZmiany.Visibility = Visibility.Hidden;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void PracownicyView_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            Label_PracownicyZmiany.Visibility = Visibility.Visible;
+        }
+
         private void Btn_generuj_Click(object sender, RoutedEventArgs e)
         {
            
@@ -279,7 +319,12 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void Wyloguj_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MessageBoxResult.Yes == MessageBox.Show("Czy na pewno?", "Wyloguj", MessageBoxButton.YesNo))
+            {
+                MainWindow main = new MainWindow();
+                main.Show();
+                this.Close();
+            }
         }
     }
 }

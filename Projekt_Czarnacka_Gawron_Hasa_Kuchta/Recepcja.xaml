@@ -63,21 +63,23 @@
 
             </Grid>
             <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
-                <DataGrid x:Name="WizytyView" Margin="22,10,-272,0" AutoGenerateColumns="false" CanUserAddRows="false" Height="314" VerticalAlignment="Top">
+                <DataGrid x:Name="WizytyView" Margin="22,10,-272,0" AutoGenerateColumns="false" CanUserAddRows="false" Height="314" VerticalAlignment="Top" RowEditEnding="WizytyView_RowEditEnding">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Id Pacjenta" Binding="{Binding id_pacjenta}"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Id Lekarza" Binding="{Binding id_lekarza}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Pacjent" Binding="{Binding Pacjent}"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Id Lekarza" Binding="{Binding Lekarz}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Data" Binding="{Binding data, StringFormat='yyy-MM-dd'}" IsReadOnly="True" />
                         <DataGridTextColumn Header="Godzina" Binding="{Binding godzina}" IsReadOnly="True" />
                         <DataGridTextColumn Header="Status" Binding="{Binding status}" />
+                        <DataGridComboBoxColumn Header="Status" x:Name="eee" SelectedItemBinding="{Binding status, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Status" ItemsSource="{Binding Path=lista}"  />
                         <DataGridTextColumn Header="Uwagi" Binding="{Binding uwagi}" />
                     </DataGrid.Columns>
                 </DataGrid>
                 <Button x:Name="ZapiszEdycje" Content="AKTUALIZUJ" HorizontalAlignment="Left" Margin="264,329,-29,0" VerticalAlignment="Top" Width="105" Click="ZapiszEdycje_Click" Background="#FFC6E377" FontFamily="Lato" Height="32" FontSize="14"/>
+                <Label x:Name="Label_WizytyZmiany" Content="Zapisz zmiany!"  HorizontalAlignment="Left" Margin="22,332,0,0" VerticalAlignment="Top" Width="105" FontFamily="Lato" Height="32" FontSize="14" Background="{x:Null}" Foreground="Red" Visibility="Hidden" />
             </Grid>
             <Grid x:Name="PanelUsuwaniaPacjenta" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
-                <DataGrid x:Name="UsuwanieView" Height="314" Margin="-125,10,-125,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False">
+                <DataGrid x:Name="UsuwanieView" Height="314" Margin="-125,10,-125,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False" RowEditEnding="UsuwanieView_RowEditEnding">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Imie" Binding="{Binding imie}" />
@@ -88,6 +90,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <Button x:Name="edytujPacnjentaBtn" Content="AKTUALIZUJ" HorizontalAlignment="Left" Margin="117,329,0,0" VerticalAlignment="Top" Width="105" Click="UsuńBtn_Click" Background="#FFC6E377" FontFamily="Lato" Height="32" FontSize="14"/>
+                <Label x:Name="Label_PacjenciZmiany" Content="Zapisz zmiany!"  HorizontalAlignment="Left" Margin="7,329,0,0" VerticalAlignment="Top" Width="105" FontFamily="Lato" Height="32" FontSize="14" Background="{x:Null}" Foreground="Red" Visibility="Hidden" />
             </Grid>
 
         </DockPanel>
