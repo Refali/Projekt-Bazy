@@ -29,28 +29,30 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            logow();
+            Logow();
         }
 
         private void UserTxt_KeyUp(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter)
             {
-                logow();
+                Logow();
             }
         }
 
-        private void logow()
+        private void Logow()
         {
             try
             {
-                connString = new SqlConnectionStringBuilder();
-                connString.InitialCatalog = "Firma";
+                connString = new SqlConnectionStringBuilder
+                {
+                    InitialCatalog = "Firma",
 
-                connString.DataSource = "localhost";
-                //connString.DataSource = @"DESKTOP-SLTS1AQ\SQLEXPRESS";
+                    DataSource = "localhost",
+                    //connString.DataSource = @"DESKTOP-SLTS1AQ\SQLEXPRESS";
 
-                connString.IntegratedSecurity = true;
+                    IntegratedSecurity = true
+                };
                 conn = new SqlConnection(connString.ConnectionString);
 
                 

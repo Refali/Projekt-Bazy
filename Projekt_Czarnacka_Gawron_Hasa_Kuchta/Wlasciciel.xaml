@@ -15,7 +15,7 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top" Height="34" VerticalAlignment="Top" Background="#FFECEAB9">
                 <MenuItem Header="_Opcje" Width="43" Height="34" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <MenuItem Header="_Nowy pracownik" Click="nowyLekarz_Click" />
+                    <MenuItem Header="_Nowy pracownik" Click="NowyLekarz_Click" />
                     <MenuItem Header="_Pracownicy" Click="Pracownicy_Click"/>
                     <MenuItem Header="_Raporty" Click="Raport_Click"/>
                     <MenuItem Header="_Wyloguj" Click="Wyloguj_Click" />
@@ -56,7 +56,7 @@
                         <DataGridTextColumn Header="Pesel" Binding="{Binding pesel}"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Adres" Binding="{Binding adres}" />
                         <DataGridTextColumn Header="Telefon" Binding="{Binding telefon}" />
-                        <DataGridTextColumn Header="Stanowisko" Binding="{Binding stanowisko}" />
+                        <DataGridComboBoxColumn Header="Status" x:Name="stanowisko_combo"  TextBinding="{Binding stanowisko}" />
                         <DataGridTextColumn Header="Login" Binding="{Binding login}" />
                         <DataGridTextColumn Header="Hasło" Binding="{Binding haslo}" />
                     </DataGrid.Columns>

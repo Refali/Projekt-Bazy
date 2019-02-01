@@ -33,10 +33,10 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             this.conn = conn;
             this.userName = userName;
             this.idLekarza = idLekarza;
-            status();
-            fill_DataGrid_Wizyty();
+            Status();
+            Fill_DataGrid_Wizyty();
         }
-        void fill_DataGrid_Wizyty()
+        void Fill_DataGrid_Wizyty()
         {
             try
             {
@@ -69,9 +69,11 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 {
                     for(int i = 0; i < zmiany.Rows.Count; i++)
                     {
-                        SqlCommand command = new SqlCommand();
-                        command.CommandText = "UPDATE wizyty Set Status = @Status, Uwagi=@Uwagi where id=@id";
-                        command.Connection = conn;
+                        SqlCommand command = new SqlCommand
+                        {
+                            CommandText = "UPDATE wizyty Set Status = @Status, Uwagi=@Uwagi where id=@id",
+                            Connection = conn
+                        };
                         command.Parameters.AddWithValue("@Status", zmiany.Rows[i]["Status"]);
                         command.Parameters.AddWithValue("@Uwagi", zmiany.Rows[i]["Uwagi"]);
                         command.Parameters.AddWithValue("@id", zmiany.Rows[i]["id"]);
@@ -91,7 +93,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             }
         }
 
-        void status()
+        void Status()
         {
             statusLbl.Content = conn.State.ToString();
             userLbl.Content = userName;
@@ -100,6 +102,23 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         private void WizytyView_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
             Label_WizytyZmiany.Visibility = Visibility.Visible;
+        }
+
+        private void TxtWyszukaj_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(txtWyszukaj.Text != "")
+            {
+                
+                dt.DefaultView.RowFilter = "Pacjent LIKE '%" + txtWyszukaj.Text + "%'";
+                WizytyView.ItemsSource = dt.DefaultView;
+            }
+            else
+            {
+                dt.DefaultView.RowFilter = "Pacjent LIKE '%'";
+                WizytyView.ItemsSource = dt.DefaultView;
+            }
+           
+            
         }
 
         private void Wyloguj_Click(object sender, RoutedEventArgs e)

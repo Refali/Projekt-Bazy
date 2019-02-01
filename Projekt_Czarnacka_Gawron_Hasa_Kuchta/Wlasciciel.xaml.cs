@@ -27,7 +27,16 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         DataTable dt, excel_dt;
         SqlConnection conn;
         string userName;
-        
+
+        //combobox
+        List<ComboBoxItem> lista = new List<ComboBoxItem>
+                {
+                    new ComboBoxItem() { Content = "Lekarz" },
+                    new ComboBoxItem() { Content = "Recepcja" },
+                    new ComboBoxItem() { Content = "Wlasciciel" },
+                };
+
+
         public Wlasciciel()
         {
             InitializeComponent();
@@ -38,8 +47,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
             this.conn = conn;
             this.userName = userName;
-            status();
-
+            Status();
+            stanowisko_combo.ItemsSource = lista;
             string querySelectPracownicy = "Select * from Pracownicy";
             dataAdapterWl = new SqlDataAdapter(querySelectPracownicy, conn);
             dswl = new DataSet();
@@ -53,7 +62,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             cb_okres.Items.Add("Maj");
 
         }
-        private void nowyLekarz_Click(object sender, RoutedEventArgs e)
+        private void NowyLekarz_Click(object sender, RoutedEventArgs e)
         {
             PanelDodawanieLekarza.Visibility = Visibility.Visible;
             PanelPracownikow.Visibility = Visibility.Collapsed;
@@ -73,7 +82,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void Pracownicy_Click(object sender, RoutedEventArgs e)
         {
-            fill_DataGrid_Pracownicy();
+            Fill_DataGrid_Pracownicy();
             PanelPracownikow.Visibility = Visibility.Visible;
             PanelRaportów.Visibility = Visibility.Collapsed;
             PanelDodawanieLekarza.Visibility = Visibility.Collapsed;
@@ -85,18 +94,20 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         {
             DodawaniePracownika();
         }
-        void status()
+        void Status()
         {
             statusLblW.Content = conn.State.ToString();
             userLblW.Content = userName;
         }
-        void fill_DataGrid_Pracownicy()
+        void Fill_DataGrid_Pracownicy()
         {
             try
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "select * from Pracownicy";
-                cmd.Connection = conn;
+                SqlCommand cmd = new SqlCommand
+                {
+                    CommandText = "select * from Pracownicy",
+                    Connection = conn
+                };
                 dataAdapterPracownicy = new SqlDataAdapter(cmd);
                 dt = new DataTable("Pracownicy");
                 dataAdapterPracownicy.Fill(dt);
@@ -156,9 +167,11 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 {
                     for (int i = 0; i < zmiany.Rows.Count; i++)
                     {
-                        SqlCommand command = new SqlCommand();
-                        command.CommandText = "UPDATE Pracownicy Set imie = @imie, nazwisko=@nazwisko, adres=@adres, telefon=@telefon, stanowisko=@stanowisko, login=@login, haslo=@haslo where id=@id";
-                        command.Connection = conn;
+                        SqlCommand command = new SqlCommand
+                        {
+                            CommandText = "UPDATE Pracownicy Set imie = @imie, nazwisko=@nazwisko, adres=@adres, telefon=@telefon, stanowisko=@stanowisko, login=@login, haslo=@haslo where id=@id",
+                            Connection = conn
+                        };
                         command.Parameters.AddWithValue("@imie", zmiany.Rows[i]["imie"]);
                         command.Parameters.AddWithValue("@nazwisko", zmiany.Rows[i]["nazwisko"]);
                         command.Parameters.AddWithValue("@adres", zmiany.Rows[i]["adres"]);

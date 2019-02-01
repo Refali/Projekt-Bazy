@@ -26,7 +26,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <Button x:Name="ZapiszEdycje" Content="AKTUALIZUJ" HorizontalAlignment="Left" Margin="267,339,0,0" VerticalAlignment="Top" Width="114" Click="ZapiszEdycje_Click" Background="#FFC6E377" FontFamily="Lato" Height="35" FontSize="16"/>
-                <TextBox x:Name="txtWyszukaj" HorizontalAlignment="Left" Height="34" Margin="28,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158"/>
+                <TextBox x:Name="txtWyszukaj" HorizontalAlignment="Left" Height="34" Margin="28,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" TextChanged="TxtWyszukaj_TextChanged"/>
                 <Label Content="Wyszukaj" HorizontalAlignment="Left" Margin="28,25,0,0" VerticalAlignment="Top" Width="158"/>
                 <Button x:Name="btnWyloguj" Content="Wyloguj" HorizontalAlignment="Left" Margin="513,50,0,0" VerticalAlignment="Top" Width="118" Height="26" Click="Wyloguj_Click"/>
                 <Label x:Name="Label_WizytyZmiany" Content="Zapisz zmiany!"  HorizontalAlignment="Left" Margin="157,339,0,0" VerticalAlignment="Top" Width="105" FontFamily="Lato" Height="32" FontSize="14" Background="{x:Null}" Foreground="Red" Visibility="Hidden" />

@@ -29,8 +29,14 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         int ilosc = 0;
         int iloscPacjenta = 0;
 
-        List<ComboBoxItem> lista = new List<ComboBoxItem>(); //combobox
-        
+        //combobox
+        List<ComboBoxItem> lista = new List<ComboBoxItem>
+                {
+                    new ComboBoxItem() { Content = "Anulowana" },
+                    new ComboBoxItem() { Content = "Zarezerwowana" },
+                    new ComboBoxItem() { Content = "Zakończona" }
+                };
+
 
         public Recepcja()
         {
@@ -44,13 +50,13 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             this.conn = conn;
             this.userName = userName;
 
-            status(); //status i zalogowano jako
+            Status(); //status i zalogowano jako
 
-            selecty(); //wszystkie potrzebne selecty
-            fill_DataGrid_Wizyty(); 
-            fill_DataGrid_Pacjenci();
-            fill_PacjentListBox(); //uzupełnienie listy Pacjentów w dodawaniu wizyty - wywołanie
-            fill_LekarzListBox(); //uzupełnienie listy Lekarzy w dodawaniu wizyty - wywołanie
+            Selecty(); //wszystkie potrzebne selecty
+            Fill_DataGrid_Wizyty(); 
+            Fill_DataGrid_Pacjenci();
+            Fill_PacjentListBox(); //uzupełnienie listy Pacjentów w dodawaniu wizyty - wywołanie
+            Fill_LekarzListBox(); //uzupełnienie listy Lekarzy w dodawaniu wizyty - wywołanie
         }
         private void ZapiszPacjenta_Click(object sender, RoutedEventArgs e)
         {
@@ -92,9 +98,11 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 {
                     for (int i = 0; i < zmiany.Rows.Count; i++)
                     {
-                        SqlCommand command = new SqlCommand();
-                        command.CommandText = "UPDATE wizyty Set Status = @Status, Uwagi=@Uwagi where id=@id";
-                        command.Connection = conn;
+                        SqlCommand command = new SqlCommand
+                        {
+                            CommandText = "UPDATE wizyty Set Status = @Status, Uwagi=@Uwagi where id=@id",
+                            Connection = conn
+                        };
                         command.Parameters.AddWithValue("@Status", zmiany.Rows[i]["Status"]);
                         command.Parameters.AddWithValue("@Uwagi", zmiany.Rows[i]["Uwagi"]);
                         command.Parameters.AddWithValue("@id", zmiany.Rows[i]["id"]);
@@ -123,8 +131,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         {
             try
             {
+
                 
-                //znalezienie id pacjenta w bazie
                 SqlCommand queryPacjenta = new SqlCommand();
                 string polecenie = "Select id from Pacjenci where pesel like @peselPacjenta";
                 string peselpacjenta = PacjentListBox.SelectedValue.ToString().Substring(7, 11);
@@ -281,13 +289,13 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         }
         //statusy
-        void status()
+        void Status()
         {
             statusLbl.Content = conn.State.ToString(); 
             userLbl.Content = userName;
         }
         //selecty
-        void selecty()
+        void Selecty()
         {
             string querySelectPacjenci = "Select * from Pacjenci";
             dataAdapterP = new SqlDataAdapter(querySelectPacjenci, conn);
@@ -301,13 +309,15 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         }
         //wypełnienie grida z pacjentami
-        void fill_DataGrid_Pacjenci()
+        void Fill_DataGrid_Pacjenci()
         {
             try
             {
-                SqlCommand cmd2 = new SqlCommand();
-                cmd2.CommandText = "select * from Pacjenci";
-                cmd2.Connection = conn;
+                SqlCommand cmd2 = new SqlCommand
+                {
+                    CommandText = "select * from Pacjenci",
+                    Connection = conn
+                };
                 dataAdapterUsuwaniePacjenta = new SqlDataAdapter(cmd2);
                 dt2 = new DataTable("Pacjenci");
                 dataAdapterUsuwaniePacjenta.Fill(dt2);
@@ -320,18 +330,18 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             }
         }
         //wypełnienie grida z wizytami
-        void fill_DataGrid_Wizyty()
+        void Fill_DataGrid_Wizyty()
         {
             try
             {
-                //combobox
-                lista.Add(new ComboBoxItem() { Content = "Anulowana" });
-                lista.Add(new ComboBoxItem() { Content = "Zarezerwowana" });
-                eee.ItemsSource = lista;
+                
+                status_combo.ItemsSource = lista;
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "select W.id, P.imie + ' ' + P.nazwisko as 'Lekarz', Pa.imie + ' ' + Pa.nazwisko as 'Pacjent', W.data, W.godzina, w.status, w.uwagi from Wizyty W JOIN Pracownicy P on W.id_lekarza = P.id Join Pacjenci PA on PA.id = W.id_pacjenta";
-                cmd.Connection = conn;
+                SqlCommand cmd = new SqlCommand
+                {
+                    CommandText = "select W.id, P.imie + ' ' + P.nazwisko as 'Lekarz', Pa.imie + ' ' + Pa.nazwisko as 'Pacjent', W.data, W.godzina, w.status, w.uwagi from Wizyty W JOIN Pracownicy P on W.id_lekarza = P.id Join Pacjenci PA on PA.id = W.id_pacjenta",
+                    Connection = conn
+                };
                 dataAdapterEdycjaWizyt = new SqlDataAdapter(cmd);
                 dt = new DataTable("Wizyty");
                 dataAdapterEdycjaWizyt.Fill(dt);
@@ -357,7 +367,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
 
         //uzupełnienie listy Lekarzy w dodawaniu wizyty
-        void fill_LekarzListBox() 
+        void Fill_LekarzListBox() 
         {
             try
             {
@@ -397,7 +407,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
 
         //uzupełnienie listy pacjentów w dodawaniu wizyty
-        void fill_PacjentListBox() 
+        void Fill_PacjentListBox() 
         {
             try
             {
@@ -421,9 +431,39 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 
         }
 
+        private void TxtWyszukajWizyty_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtWyszukajWizyty.Text != "")
+            {
+
+                dt.DefaultView.RowFilter = "Pacjent LIKE '%" + txtWyszukajWizyty.Text + "%' or Lekarz LIKE '%" + txtWyszukajWizyty.Text + "%'";
+                WizytyView.ItemsSource = dt.DefaultView;
+            }
+            else
+            {
+                dt.DefaultView.RowFilter = "Pacjent LIKE '%'";
+                WizytyView.ItemsSource = dt.DefaultView;
+            }
+        }
+
+        private void TxtWyszukajPacjenta_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtWyszukajPacjenta.Text != "")
+            {
+
+                dt2.DefaultView.RowFilter = "Imie LIKE '%" + txtWyszukajPacjenta.Text + "%' or Nazwisko LIKE '%" + txtWyszukajPacjenta.Text + "%'";
+                UsuwanieView.ItemsSource = dt2.DefaultView;
+            }
+            else
+            {
+                dt2.DefaultView.RowFilter = "Imie LIKE '%'";
+                UsuwanieView.ItemsSource = dt2.DefaultView;
+            }
+        }
+
         //Widzialność paneli
 
-        private void nowyPacjent_Click(object sender, RoutedEventArgs e)
+        private void NowyPacjent_Click(object sender, RoutedEventArgs e)
         {
             PanelDodawaniePacjenta.Visibility = Visibility.Visible;
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
@@ -433,9 +473,9 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             this.Height = 471;
         }
 
-        private void usunPacjenta_Click(object sender, RoutedEventArgs e)
+        private void UsunPacjenta_Click(object sender, RoutedEventArgs e)
         {
-            fill_DataGrid_Pacjenci();
+            Fill_DataGrid_Pacjenci();
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Collapsed;
@@ -443,7 +483,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             this.Width = 652.594;
             this.Height = 471;
         }
-        private void nowaWizyta_Click(object sender, RoutedEventArgs e)
+        private void NowaWizyta_Click(object sender, RoutedEventArgs e)
         {
             PanelDodawanieWizyty.Visibility = Visibility.Visible;
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;
@@ -453,9 +493,9 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             this.Height = 471;
         }
 
-        private void edycjaWizyty_Click(object sender, RoutedEventArgs e)
+        private void EdycjaWizyty_Click(object sender, RoutedEventArgs e)
         {
-            fill_DataGrid_Wizyty();
+            Fill_DataGrid_Wizyty();
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Visible;
