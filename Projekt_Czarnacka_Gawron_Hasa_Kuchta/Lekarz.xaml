@@ -7,10 +7,8 @@
         mc:Ignorable="d"
         Title="Lekarz" Height="464" Width="670.594" Background="#FFFBFAD3" Icon="logo.png" MinWidth="352.594" MinHeight="458" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="Status:" Margin="10,0,0,20" Panel.ZIndex="1000" FontFamily="Lato" FontWeight="Bold" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="46"/>
-        <Label Content="Zalogowano jako:" Margin="103,0,0,20" Panel.ZIndex="1000" FontFamily="Lato" FontWeight="Bold" HorizontalAlignment="Left" Width="104" Height="24" VerticalAlignment="Bottom"/>
-        <Label x:Name="userLbl" Content="" HorizontalAlignment="Left" Margin="204,0,0,20" Panel.ZIndex="1000" Width="95" FontFamily="Lato" Height="24" VerticalAlignment="Bottom"/>
-        <Label x:Name="statusLbl" Content="" HorizontalAlignment="Left" Margin="52,0,0,20" Panel.ZIndex="1000" Width="46" FontFamily="Lato" Height="24" VerticalAlignment="Bottom"/>
+        <Label Content="Zalogowano jako:" Margin="33,0,0,20.4" Panel.ZIndex="1000" FontFamily="Lato" FontWeight="Bold" HorizontalAlignment="Left" Width="104" Height="24" VerticalAlignment="Bottom"/>
+        <Label x:Name="userLbl" Content="" HorizontalAlignment="Left" Margin="142,0,0,20.4" Panel.ZIndex="1000" Width="95" FontFamily="Lato" Height="24" VerticalAlignment="Bottom"/>
 
         <DockPanel>
             <Grid x:Name="PanelEdycjaWizyty" Width="657" Panel.ZIndex="1" Visibility="Visible" Background="#FFFBFAD3" Margin="0,2,0,-1.6">

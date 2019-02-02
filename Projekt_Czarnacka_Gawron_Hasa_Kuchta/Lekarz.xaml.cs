@@ -95,7 +95,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         void Status()
         {
-            statusLbl.Content = conn.State.ToString();
+          
             userLbl.Content = userName;
         }
 

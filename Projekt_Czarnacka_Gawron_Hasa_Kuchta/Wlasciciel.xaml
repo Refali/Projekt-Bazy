@@ -7,10 +7,8 @@
         mc:Ignorable="d"
         Title="Wlasciciel" Height="450" Width="352.594" Background="#FFFBFAD3" Icon="logo.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="Status:" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" FontFamily="Lato" FontWeight="Bold"/>
-        <Label Content="Zalogowano jako:" HorizontalAlignment="Left" Margin="98,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" FontFamily="Lato" FontWeight="Bold"/>
-        <Label x:Name="userLblW" Content="" HorizontalAlignment="Left" Margin="199,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="95" FontFamily="Lato"/>
-        <Label x:Name="statusLblW" Content="" HorizontalAlignment="Left" Margin="52,383,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="46" FontFamily="Lato"/>
+        <Label Content="Zalogowano jako:" HorizontalAlignment="Left" Margin="10,386,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" FontFamily="Lato" FontWeight="Bold"/>
+        <Label x:Name="userLblW" Content="" HorizontalAlignment="Left" Margin="125,386,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="95" FontFamily="Lato"/>
 
         <DockPanel>
             <Menu DockPanel.Dock="Top" Height="34" VerticalAlignment="Top" Background="#FFECEAB9">
@@ -45,7 +43,13 @@
             </Grid>
             <Grid x:Name="PanelRaportów" Width="343" Panel.ZIndex="1" Visibility="Visible">
                 <Button x:Name="btn_generuj" Content="GENERUJ RAPORT" HorizontalAlignment="Left" Margin="67,117,0,0" VerticalAlignment="Top" Width="210" Height="39" Click="Btn_generuj_Click" Background="#FFC6E377" FontFamily="Lato" FontSize="16"/>
-                <ComboBox x:Name="cb_okres" HorizontalAlignment="Left" Margin="67,44,0,0" VerticalAlignment="Top" Width="210" SelectedIndex="0" Height="35"/>
+                <ComboBox x:Name="cb_okres" HorizontalAlignment="Left" Margin="67,44,0,0" VerticalAlignment="Top" Width="210" SelectedIndex="0" Height="34" FontFamily="Lato" FontSize="16">
+                    <ComboBoxItem Content="Wybierz Zakres" IsEnabled="False" />
+                    <ComboBoxItem Content="Dzienny"/>
+                    <ComboBoxItem Content="Tygodniowy"/>
+                    <ComboBoxItem Content="Miesięczny"/>
+                    <ComboBoxItem Content="Roczny"/>
+                </ComboBox>
             </Grid>
             <Grid x:Name="PanelPracownikow" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
                 <DataGrid x:Name="PracownicyView" Height="286" Margin="-135,10,-135,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False" HorizontalAlignment="Left" Width="613" RowEditEnding="PracownicyView_RowEditEnding">

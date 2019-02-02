@@ -62,6 +62,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         private void ZapiszPacjenta_Click(object sender, RoutedEventArgs e)
         {
             DodawaniePacjenta(); //dodawanie pacjenta 
+
         }
 
         private void ZapiszWizyte_Click(object sender, RoutedEventArgs e)
@@ -292,7 +293,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         //statusy
         void Status()
         {
-            statusLbl.Content = conn.State.ToString(); 
+            
             userLbl.Content = userName;
         }
         //selecty
@@ -412,6 +413,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         {
             try
             {
+                PacjentListBox.Items.Clear();
+                
                 string query = "select * from Pacjenci";
                 SqlCommand command = new SqlCommand(query, conn);
                 DataTable pacjenci = new DataTable();
@@ -488,6 +491,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         }
         private void NowaWizyta_Click(object sender, RoutedEventArgs e)
         {
+            Fill_PacjentListBox();
             Title = "Recepcja - Nowa wizyta";
             PanelDodawanieWizyty.Visibility = Visibility.Visible;
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;

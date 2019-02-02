@@ -26,7 +26,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         DataSet dswl;
         DataTable dt, excel_dt;
         SqlConnection conn;
-        string userName;
+        string userName, excel_command_string;
+        
 
         //combobox
         List<ComboBoxItem> lista = new List<ComboBoxItem>
@@ -55,12 +56,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             dswl = new DataSet();
             dataAdapterWl.Fill(dswl, "Pracownicy");
 
-            cb_okres.Items.Add("Wybierz Miesiąc");
-            cb_okres.Items.Add("Styczeń");
-            cb_okres.Items.Add("Luty");
-            cb_okres.Items.Add("Marzec");
-            cb_okres.Items.Add("Kwiecień");
-            cb_okres.Items.Add("Maj");
+         
 
         }
         private void NowyLekarz_Click(object sender, RoutedEventArgs e)
@@ -100,7 +96,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         }
         void Status()
         {
-            statusLblW.Content = conn.State.ToString();
+            
             userLblW.Content = userName;
         }
         void Fill_DataGrid_Pracownicy()
@@ -208,14 +204,48 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         {
            
             string excel_file = "C:\\Users\\" + Environment.UserName + "\\Desktop\\Raport z dnia " + DateTime.Now.ToShortDateString() + ".xlsx";
+            
             try
             {
+                /*convert - zmienia datę z sql na kształt shortdatetime a 103 to format British/French 
+                 * switch do zmiany okresu raportu (dzień, tydzien, miesiac, rok)
+                 */
+                switch (cb_okres.SelectedIndex)
+                {
+                    case 1:
+                          excel_command_string = "Select Pac.imie + ' ' + Pac.nazwisko as 'Pacjent', Pac.pesel as 'Pesel', P.imie + ' ' + P.nazwisko as 'Lekarz'," +
+                                "CONVERT(VARCHAR(10), GETDATE(), 103) as 'Data', W.godzina as 'Godzina', W.status as 'Status wizyty'" +
+                                "from Wizyty W JOIN Pracownicy P ON W.id_lekarza = P.id Join Pacjenci Pac ON w.id_pacjenta = Pac.id " +
+                                "where data >= DATEADD(DAY, -1, GETDATE()) and data <=GETDATE()";
+                        break;
+
+                    case 2:
+                        excel_command_string = "Select Pac.imie + ' ' + Pac.nazwisko as 'Pacjent', Pac.pesel as 'Pesel', P.imie + ' ' + P.nazwisko as 'Lekarz'," +
+                              " CONVERT(VARCHAR(10), GETDATE(), 103) as 'Data', W.godzina as 'Godzina', W.status as 'Status wizyty'" +
+                              "from Wizyty W JOIN Pracownicy P ON W.id_lekarza = P.id Join Pacjenci Pac ON w.id_pacjenta = Pac.id " +
+                              "where data >= DATEADD(DAY, -7, GETDATE()) and data <=GETDATE()";
+
+                        break;
+
+                    case 3:
+                        excel_command_string = "Select Pac.imie + ' ' + Pac.nazwisko as 'Pacjent', Pac.pesel as 'Pesel', P.imie + ' ' + P.nazwisko as 'Lekarz'," +
+                              " CONVERT(VARCHAR(10), GETDATE(), 103) as 'Data', W.godzina as 'Godzina', W.status as 'Status wizyty'" +
+                              "from Wizyty W JOIN Pracownicy P ON W.id_lekarza = P.id Join Pacjenci Pac ON w.id_pacjenta = Pac.id " +
+                              "where data >= DATEADD(MONTH, -1, GETDATE()) and data <=GETDATE()";
+                        break;
+                    case 4:
+                        excel_command_string = "Select Pac.imie + ' ' + Pac.nazwisko as 'Pacjent', Pac.pesel as 'Pesel', P.imie + ' ' + P.nazwisko as 'Lekarz'," +
+                             " CONVERT(VARCHAR(10), GETDATE(), 103) as 'Data', W.godzina as 'Godzina', W.status as 'Status wizyty'" +
+                             "from Wizyty W JOIN Pracownicy P ON W.id_lekarza = P.id Join Pacjenci Pac ON w.id_pacjenta = Pac.id " +
+                             "where data >= DATEADD(YEAR, -1, GETDATE()) and data <=GETDATE()";
+
+                        break;
+                }
                 if (File.Exists(excel_file) == false)
                 {
+                    
+
                     //zamiana danych z sql na obiekt datatable
-                    string excel_command_string = "Select Pac.imie + ' ' + Pac.nazwisko as 'Pacjent', Pac.pesel as 'Pesel', P.imie + ' ' + P.nazwisko as 'Lekarz'," +
-                                                    " W.data as 'Data', W.godzina as 'Godzina', W.status as 'Status wizyty'" +
-                                                    "from Wizyty W JOIN Pracownicy P ON W.id_lekarza = P.id Join Pacjenci Pac ON w.id_pacjenta = Pac.id";
                     SqlCommand excel_command = new SqlCommand(excel_command_string, conn);
                     dataAdapterExcel = new SqlDataAdapter(excel_command);
                     excel_dt = new DataTable();

@@ -8,10 +8,8 @@
         Title="Recepcja" Height="471" Width="352.594" Icon="logo.png" Background="#FFFBFAD3" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
 
     <Grid>
-        <Label Content="Status:" HorizontalAlignment="Left" Margin="10,406,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" FontWeight="Bold" FontFamily="Lato"/>
-        <Label Content="Zalogowano jako:" HorizontalAlignment="Left" Margin="98,406,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" FontWeight="Bold" FontFamily="Lato"/>
-        <Label x:Name="userLbl" Content="" HorizontalAlignment="Left" Margin="199,406,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="95" FontFamily="Lato"/>
-        <Label x:Name="statusLbl" Content="" HorizontalAlignment="Left" Margin="52,406,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="46" FontFamily="Lato"/>
+        <Label Content="Zalogowano jako:" HorizontalAlignment="Left" Margin="10,406,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" FontWeight="Bold" FontFamily="Lato"/>
+        <Label x:Name="userLbl" Content="" HorizontalAlignment="Left" Margin="120,406,0,0" VerticalAlignment="Top" Panel.ZIndex="1000" Width="95" FontFamily="Lato"/>
 
         <DockPanel>
             <Menu DockPanel.Dock="Top" Height="34" VerticalAlignment="Top" Background="#FFECEAB9">
@@ -60,6 +58,7 @@
                     <ComboBoxItem Content="17:00" Name="siedemnasta"/>
                     <ComboBoxItem Content="18:00" Name="osiemnasta"/>
                 </ComboBox>
+                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="100" Margin="114,54,0,0" VerticalAlignment="Top" Width="100"/>
 
             </Grid>
             <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
