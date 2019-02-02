@@ -46,7 +46,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         public Recepcja(SqlConnection conn,string userName)
         {
             InitializeComponent();
-             
+            Title = "Recepcja - Nowa wizyta";
+
             this.conn = conn;
             this.userName = userName;
 
@@ -465,6 +466,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void NowyPacjent_Click(object sender, RoutedEventArgs e)
         {
+            Title = "Recepcja - Nowy pacjent";
             PanelDodawaniePacjenta.Visibility = Visibility.Visible;
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Collapsed;
@@ -475,6 +477,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void UsunPacjenta_Click(object sender, RoutedEventArgs e)
         {
+            Title = "Recepcja - Pacjenci";
             Fill_DataGrid_Pacjenci();
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
@@ -485,6 +488,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         }
         private void NowaWizyta_Click(object sender, RoutedEventArgs e)
         {
+            Title = "Recepcja - Nowa wizyta";
             PanelDodawanieWizyty.Visibility = Visibility.Visible;
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Collapsed;
@@ -495,6 +499,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void EdycjaWizyty_Click(object sender, RoutedEventArgs e)
         {
+            Title = "Recepcja - Wizyty";
             Fill_DataGrid_Wizyty();
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;

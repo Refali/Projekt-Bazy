@@ -25,8 +25,9 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         public MainWindow()
         {
             InitializeComponent();
+            userTxt.Focus();
         }
-
+        
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             Logow();
@@ -100,7 +101,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
                     }
                 }
-
+                lbNieprawidloweDane.Visibility = Visibility.Visible;
                 userTxt.Clear();
                 passwordTxt.Clear();
             }

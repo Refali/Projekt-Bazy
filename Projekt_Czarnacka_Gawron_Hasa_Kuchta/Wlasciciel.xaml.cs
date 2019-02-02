@@ -44,6 +44,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         public Wlasciciel(SqlConnection conn, string userName)
         {
             InitializeComponent();
+            Title = "Wlasciciel - Raporty";
 
             this.conn = conn;
             this.userName = userName;
@@ -64,6 +65,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         }
         private void NowyLekarz_Click(object sender, RoutedEventArgs e)
         {
+            Title = "Wlasciciel - Nowy pracownik";
             PanelDodawanieLekarza.Visibility = Visibility.Visible;
             PanelPracownikow.Visibility = Visibility.Collapsed;
             PanelPracownikow.Visibility = Visibility.Collapsed;
@@ -73,6 +75,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void Raport_Click(object sender, RoutedEventArgs e)
         {
+            Title = "Wlasciciel - Raporty";
             PanelPracownikow.Visibility = Visibility.Collapsed;
             PanelRaportów.Visibility = Visibility.Visible;
             PanelDodawanieLekarza.Visibility = Visibility.Collapsed;
@@ -82,6 +85,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
         private void Pracownicy_Click(object sender, RoutedEventArgs e)
         {
+            Title = "Wlasciciel - Pracownicy";
             Fill_DataGrid_Pracownicy();
             PanelPracownikow.Visibility = Visibility.Visible;
             PanelRaportów.Visibility = Visibility.Collapsed;
@@ -216,7 +220,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                     dataAdapterExcel = new SqlDataAdapter(excel_command);
                     excel_dt = new DataTable();
                     //wypełnienie obiektu datatable
-                    excel_dt.Load(excel_command.ExecuteReader());
+                    dataAdapterExcel.Fill(excel_dt);
 
                     Excel.Application excel_object;
                     Excel.Workbook excel_workbook;

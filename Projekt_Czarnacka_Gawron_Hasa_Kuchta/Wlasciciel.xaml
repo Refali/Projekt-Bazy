@@ -43,12 +43,12 @@
                 <TextBox x:Name="loginLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="35,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyUp="PressEnter"/>
                 <TextBox x:Name="hasloLekarzaTxt" HorizontalAlignment="Left" Height="23" Margin="184,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyUp="PressEnter"/>
             </Grid>
-            <Grid x:Name="PanelRaportów" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
-                <Button x:Name="btn_generuj" Content="Button" HorizontalAlignment="Left" Margin="67,117,0,0" VerticalAlignment="Top" Width="210" Height="39" Click="Btn_generuj_Click"/>
+            <Grid x:Name="PanelRaportów" Width="343" Panel.ZIndex="1" Visibility="Visible">
+                <Button x:Name="btn_generuj" Content="GENERUJ RAPORT" HorizontalAlignment="Left" Margin="67,117,0,0" VerticalAlignment="Top" Width="210" Height="39" Click="Btn_generuj_Click" Background="#FFC6E377" FontFamily="Lato" FontSize="16"/>
                 <ComboBox x:Name="cb_okres" HorizontalAlignment="Left" Margin="67,44,0,0" VerticalAlignment="Top" Width="210" SelectedIndex="0" Height="35"/>
             </Grid>
             <Grid x:Name="PanelPracownikow" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
-                <DataGrid x:Name="PracownicyView" Height="303" Margin="-135,10,-135,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False" HorizontalAlignment="Left" Width="613" RowEditEnding="PracownicyView_RowEditEnding">
+                <DataGrid x:Name="PracownicyView" Height="286" Margin="-135,10,-135,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False" HorizontalAlignment="Left" Width="613" RowEditEnding="PracownicyView_RowEditEnding">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Imie" Binding="{Binding imie}" />
@@ -61,11 +61,11 @@
                         <DataGridTextColumn Header="Hasło" Binding="{Binding haslo}" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button x:Name="EdytujPracownikaBtn" Content="Button" HorizontalAlignment="Left" Margin="135,318,0,0" VerticalAlignment="Top" Width="75" Click="EdytujPracownikaBtn_Click"/>
-                <Label x:Name="Label_PracownicyZmiany" Content="Zapisz zmiany!"  HorizontalAlignment="Left" Margin="228,345,0,0" VerticalAlignment="Top" Width="105" FontFamily="Lato" Height="32" FontSize="14" Background="{x:Null}" Foreground="Red" Visibility="Hidden" />
+                <Button x:Name="EdytujPracownikaBtn" Content="ZAPISZ" HorizontalAlignment="Left" Margin="124,308,0,0" VerticalAlignment="Top" Width="90" Click="EdytujPracownikaBtn_Click" Background="#FFC6E377" FontFamily="Lato" FontSize="16" Height="30"/>
+                <Label x:Name="Label_PracownicyZmiany" Content="Zmiany nie zostały zapisane!"  HorizontalAlignment="Left" Margin="302,345,-149,0" VerticalAlignment="Top" Width="190" FontFamily="Lato" Height="32" FontSize="14" Background="{x:Null}" Foreground="Red" Visibility="Hidden" />
             </Grid>
-            
+
         </DockPanel>
-        
+
     </Grid>
 </Window>

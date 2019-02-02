@@ -36,20 +36,20 @@
                 <Label Content="Adres" HorizontalAlignment="Left" Margin="189,114,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>
                 <Label Content="Numer telefonu" HorizontalAlignment="Left" Margin="39,175,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>
             </Grid>
-            <Grid x:Name="PanelDodawanieWizyty" Height="380" VerticalAlignment="Top" Width="343" Margin="0,5,0,0" Panel.ZIndex="1" Visibility="Collapsed">
+            <Grid x:Name="PanelDodawanieWizyty" Height="380" VerticalAlignment="Top" Width="343" Margin="0,5,0,0" Panel.ZIndex="1" Visibility="Visible">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <DatePicker x:Name="DataTxt" HorizontalAlignment="Left" Margin="36,106,0,0" VerticalAlignment="Top" Width="120" Height="24" />
+                <DatePicker x:Name="DataTxt" HorizontalAlignment="Left" Margin="39,133,0,0" VerticalAlignment="Top" Width="120" Height="24" />
 
-                <Button x:Name="ZapiszWizyte" Content="ZAPISZ" HorizontalAlignment="Left" Margin="36,161,0,0" VerticalAlignment="Top" Width="120" Click="ZapiszWizyte_Click" FontFamily="Lato" Background="#FFC6E377" Height="33" FontSize="16"/>
-                <Label Content="Pacjent" HorizontalAlignment="Left" Margin="36,26,0,0" VerticalAlignment="Top" Height="28" FontFamily="Lato" Padding="0,5,5,0" Width="44"/>
-                <Label Content="Lekarz" HorizontalAlignment="Left" Margin="186,27,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0" Width="39"/>
-                <Label Content="Data" HorizontalAlignment="Left" Margin="36,85,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0" Width="30"/>
-                <Label Content="Godzina" HorizontalAlignment="Left" Margin="186,85,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0" Width="48"/>
-                <ComboBox x:Name="PacjentListBox" HorizontalAlignment="Left" Margin="36,50,0,0" VerticalAlignment="Top" Width="120" Height="22"/>
-                <ComboBox x:Name="LekarzListBox" HorizontalAlignment="Left" Margin="186,50,0,0" VerticalAlignment="Top" Width="120" Height="22"/>
-                <ComboBox x:Name="GodzinaListBox" HorizontalAlignment="Left" Margin="186,106,0,0" VerticalAlignment="Top" Width="120" Height="22">
+                <Button x:Name="ZapiszWizyte" Content="ZAPISZ" HorizontalAlignment="Left" Margin="37,181,0,0" VerticalAlignment="Top" Width="120" Click="ZapiszWizyte_Click" FontFamily="Lato" Background="#FFC6E377" Height="33" FontSize="16"/>
+                <Label Content="Pacjent" HorizontalAlignment="Left" Margin="39,54,0,0" VerticalAlignment="Top" Height="28" FontFamily="Lato" Padding="0,5,5,0" Width="44"/>
+                <Label Content="Lekarz" HorizontalAlignment="Left" Margin="189,54,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0" Width="39"/>
+                <Label Content="Data" HorizontalAlignment="Left" Margin="39,110,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0" Width="30"/>
+                <Label Content="Godzina" HorizontalAlignment="Left" Margin="189,110,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0" Width="48"/>
+                <ComboBox x:Name="PacjentListBox" HorizontalAlignment="Left" Margin="39,77,0,0" VerticalAlignment="Top" Width="120" Height="22"/>
+                <ComboBox x:Name="LekarzListBox" HorizontalAlignment="Left" Margin="189,77,0,0" VerticalAlignment="Top" Width="120" Height="22"/>
+                <ComboBox x:Name="GodzinaListBox" HorizontalAlignment="Left" Margin="189,133,0,0" VerticalAlignment="Top" Width="120" Height="22">
                     <ComboBoxItem Content="10:00" Name="dziesiata" IsSelected="True"/>
                     <ComboBoxItem Content="11:00" Name="jedenasta"/>
                     <ComboBoxItem Content="12:00" Name="dwunasta"/>
@@ -62,8 +62,8 @@
                 </ComboBox>
 
             </Grid>
-            <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Visible">
-                <DataGrid x:Name="WizytyView" Margin="22,10,-272,0" AutoGenerateColumns="false" CanUserAddRows="false" Height="314" VerticalAlignment="Top" RowEditEnding="WizytyView_RowEditEnding">
+            <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
+                <DataGrid x:Name="WizytyView" Margin="22,10,-272,0" AutoGenerateColumns="false" CanUserAddRows="false" Height="280" VerticalAlignment="Top" RowEditEnding="WizytyView_RowEditEnding">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Pacjent" Binding="{Binding Pacjent}"  IsReadOnly="True"/>
@@ -74,12 +74,13 @@
                         <DataGridTextColumn Header="Uwagi" Binding="{Binding uwagi}" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <TextBox x:Name="txtWyszukajWizyty" HorizontalAlignment="Left" Height="34" Margin="10,327,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" TextChanged="TxtWyszukajWizyty_TextChanged"/>
+                <TextBox x:Name="txtWyszukajWizyty" HorizontalAlignment="Left" Height="32" Margin="22,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" TextChanged="TxtWyszukajWizyty_TextChanged"/>
                 <Button x:Name="ZapiszEdycje" Content="AKTUALIZUJ" HorizontalAlignment="Left" Margin="264,329,-29,0" VerticalAlignment="Top" Width="105" Click="ZapiszEdycje_Click" Background="#FFC6E377" FontFamily="Lato" Height="32" FontSize="14"/>
-                <Label x:Name="Label_WizytyZmiany" Content="Zapisz zmiany!"  HorizontalAlignment="Left" Margin="22,332,0,0" VerticalAlignment="Top" Width="105" FontFamily="Lato" Height="32" FontSize="14" Background="{x:Null}" Foreground="Red" Visibility="Hidden" />
+                <Label x:Name="Label_WizytyZmiany" Content="Zmiany nie zostały zapisane!"  HorizontalAlignment="Left" Margin="440,364,-287,0" VerticalAlignment="Top" Width="190" FontFamily="Lato" Height="32" FontSize="14" Background="{x:Null}" Foreground="Red" Visibility="Collapsed" />
+                <Label Content="Wyszukaj:" HorizontalAlignment="Left" Margin="22,305,0,0" VerticalAlignment="Top" FontFamily="Lato"/>
             </Grid>
             <Grid x:Name="PanelUsuwaniaPacjenta" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
-                <DataGrid x:Name="UsuwanieView" Height="314" Margin="-125,10,-125,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False" RowEditEnding="UsuwanieView_RowEditEnding">
+                <DataGrid x:Name="UsuwanieView" Height="280" Margin="-125,10,-125,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False" RowEditEnding="UsuwanieView_RowEditEnding">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Imie" Binding="{Binding imie}" />
@@ -89,11 +90,13 @@
                         <DataGridTextColumn Header="Telefon" Binding="{Binding telefon}" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <TextBox x:Name="txtWyszukajPacjenta" HorizontalAlignment="Left" Height="34" Margin="10,327,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" TextChanged="TxtWyszukajPacjenta_TextChanged"/>
+                <TextBox x:Name="txtWyszukajPacjenta" HorizontalAlignment="Left" Height="32" Margin="-125,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" TextChanged="TxtWyszukajPacjenta_TextChanged"/>
                 <Button x:Name="edytujPacnjentaBtn" Content="AKTUALIZUJ" HorizontalAlignment="Left" Margin="117,329,0,0" VerticalAlignment="Top" Width="105" Click="UsuńBtn_Click" Background="#FFC6E377" FontFamily="Lato" Height="32" FontSize="14"/>
-                <Label x:Name="Label_PacjenciZmiany" Content="Zapisz zmiany!"  HorizontalAlignment="Left" Margin="7,329,0,0" VerticalAlignment="Top" Width="105" FontFamily="Lato" Height="32" FontSize="14" Background="{x:Null}" Foreground="Red" Visibility="Hidden" />
+                <Label x:Name="Label_PacjenciZmiany" Content="Zmiany nie zostały zapisane!"  HorizontalAlignment="Left" Margin="293,364,-134,0" VerticalAlignment="Top" Width="184" FontFamily="Lato" Height="32" FontSize="14" Background="{x:Null}" Foreground="Red" Visibility="Hidden" />
+                <Label Content="Wyszukaj:" HorizontalAlignment="Left" Margin="-125,305,0,0" VerticalAlignment="Top" FontFamily="Lato"/>
             </Grid>
 
         </DockPanel>
+
     </Grid>
 </Window>
