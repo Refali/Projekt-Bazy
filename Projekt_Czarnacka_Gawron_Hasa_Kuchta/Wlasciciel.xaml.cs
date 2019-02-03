@@ -34,7 +34,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 {
                     new ComboBoxItem() { Content = "Lekarz" },
                     new ComboBoxItem() { Content = "Recepcja" },
-                    new ComboBoxItem() { Content = "Wlasciciel" },
+                    new ComboBoxItem() { Content = "Zwolniony" },
                 };
 
 
@@ -105,7 +105,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             {
                 SqlCommand cmd = new SqlCommand
                 {
-                    CommandText = "select * from Pracownicy",
+                    CommandText = "select * from Pracownicy where stanowisko not like 'Wlasciciel'",
                     Connection = conn
                 };
                 dataAdapterPracownicy = new SqlDataAdapter(cmd);
@@ -330,40 +330,50 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             {
                 try
                 {
-                    DataRow drwl = dswl.Tables["Pracownicy"].NewRow();
-                    drwl["imie"] = imieLekarzaTxt.Text;
-                    drwl["nazwisko"] = nazwiskoLekarzaTxt.Text;
-                    drwl["pesel"] = peselLekarzaTxt.Text;
-                    drwl["adres"] = adresLekarzaTxt.Text;
-                    drwl["telefon"] = telefonLekarza.Text;
-                    drwl["stanowisko"] = StanowiskoBox.SelectionBoxItem;
-                    drwl["login"] = loginLekarzaTxt.Text;
-                    drwl["haslo"] = hasloLekarzaTxt.Text;
-                    
+                    if (imieLekarzaTxt.Text == "" || nazwiskoLekarzaTxt.Text == "" || peselLekarzaTxt.Text == "" || adresLekarzaTxt.Text == "" || telefonLekarza.Text == "" || peselLekarzaTxt.Text.Length != 11 || loginLekarzaTxt.Text == "" || hasloLekarzaTxt.Text == "")
+                    {
+                        MessageBox.Show("Dane nieprawidłowe! Sprawdź poprawność danych!");
+                    }
+                    else
+                    {
 
-                    dswl.Tables["Pracownicy"].Rows.Add(drwl);
+                        DataRow drwl = dswl.Tables["Pracownicy"].NewRow();
+                        drwl["imie"] = imieLekarzaTxt.Text;
+                        drwl["nazwisko"] = nazwiskoLekarzaTxt.Text;
+                        drwl["pesel"] = peselLekarzaTxt.Text;
+                        drwl["adres"] = adresLekarzaTxt.Text;
+                        drwl["telefon"] = telefonLekarza.Text;
+                        drwl["stanowisko"] = StanowiskoBox.SelectionBoxItem;
+                        drwl["login"] = loginLekarzaTxt.Text;
+                        drwl["haslo"] = hasloLekarzaTxt.Text;
+
+
+                        dswl.Tables["Pracownicy"].Rows.Add(drwl);
+
+                        try
+                        {
+                            SqlCommandBuilder queryUpdatePracownikow = new SqlCommandBuilder(dataAdapterWl);
+                            int updateIloscPracownikow = dataAdapterWl.Update(dswl, "Pracownicy");
+                            MessageBox.Show("Dodano pracownika");
+                        }
+                        catch (Exception exc)
+                        {
+                            MessageBox.Show(exc.Message);
+                        }
+                        imieLekarzaTxt.Clear();
+                        nazwiskoLekarzaTxt.Clear();
+                        peselLekarzaTxt.Clear();
+                        adresLekarzaTxt.Clear();
+                        telefonLekarza.Clear();
+                        loginLekarzaTxt.Clear();
+                        hasloLekarzaTxt.Clear();
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-                try
-                {
-                    SqlCommandBuilder queryUpdatePracownikow = new SqlCommandBuilder(dataAdapterWl);
-                    int updateIloscPracownikow = dataAdapterWl.Update(dswl, "Pracownicy");
-                    MessageBox.Show("Dodano pracownika");
-                }
-                catch (Exception exc)
-                {
-                    MessageBox.Show(exc.Message);
-                }
-                imieLekarzaTxt.Clear();
-                nazwiskoLekarzaTxt.Clear();
-                peselLekarzaTxt.Clear();
-                adresLekarzaTxt.Clear();
-                telefonLekarza.Clear();
-                loginLekarzaTxt.Clear();
-                hasloLekarzaTxt.Clear();
+               
             }
 
             

@@ -252,31 +252,38 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             {
                 try
                 {
-                    DataRow dr = dsp.Tables["Pacjenci"].NewRow();
-                    dr["imie"] = imiePacjentaTxt.Text;
-                    dr["nazwisko"] = nazwiskoPacjentaTxt.Text;
-                    dr["pesel"] = peselPacjentaTxt.Text;
-                    dr["adres"] = adresPacjentaTxt.Text;
-                    dr["telefon"] = telefonPacjenta.Text;
+                    if (imiePacjentaTxt.Text == "" || nazwiskoPacjentaTxt.Text == "" || peselPacjentaTxt.Text == "" || adresPacjentaTxt.Text=="" || telefonPacjenta.Text == "" || peselPacjentaTxt.Text.Length != 11 )
+                    {
+                        MessageBox.Show("Dane nieprawidłowe! Sprawdź poprawność danych!");
+                    }
+                    else
+                    {
+                        DataRow dr = dsp.Tables["Pacjenci"].NewRow();
+                        dr["imie"] = imiePacjentaTxt.Text;
+                        dr["nazwisko"] = nazwiskoPacjentaTxt.Text;
+                        dr["pesel"] = peselPacjentaTxt.Text;
+                        dr["adres"] = adresPacjentaTxt.Text;
+                        dr["telefon"] = telefonPacjenta.Text;
 
-                    dsp.Tables["Pacjenci"].Rows.Add(dr);
+                        dsp.Tables["Pacjenci"].Rows.Add(dr);
+                        try
+                        {
+                            SqlCommandBuilder queryUpdate = new SqlCommandBuilder(dataAdapterP);
+                            int updateIlosc = dataAdapterP.Update(dsp, "Pacjenci");
+                            MessageBox.Show("Dodano pacjenta");
 
+                        }
+                        catch (Exception exc)
+                        {
+                            MessageBox.Show(exc.Message);
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-                try
-                {
-                    SqlCommandBuilder queryUpdate = new SqlCommandBuilder(dataAdapterP);
-                    int updateIlosc = dataAdapterP.Update(dsp, "Pacjenci");
-                    MessageBox.Show("Dodano pacjenta");
-
-                }
-                catch (Exception exc)
-                {
-                    MessageBox.Show(exc.Message);
-                }
+                
             }
             else
             {
@@ -374,7 +381,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         {
             try
             {
-                string query = "select * from Pracownicy where stanowisko='lekarz'";
+                string query = "select * from Pracownicy where stanowisko='lekarz' order by Nazwisko";
                 SqlCommand command = new SqlCommand(query, conn);
                 DataTable pracownicy = new DataTable();
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -416,7 +423,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             {
                 PacjentListBox.Items.Clear();
                 
-                string query = "select * from Pacjenci";
+                string query = "select * from Pacjenci order by Nazwisko";
                 SqlCommand command = new SqlCommand(query, conn);
                 DataTable pacjenci = new DataTable();
                 SqlDataAdapter adapter = new SqlDataAdapter(command);

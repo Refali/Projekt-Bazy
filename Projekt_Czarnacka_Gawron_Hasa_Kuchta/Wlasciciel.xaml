@@ -32,7 +32,7 @@
                 <Label Content="Adres" HorizontalAlignment="Left" Margin="184,79,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>
                 <Label Content="Numer telefonu" HorizontalAlignment="Left" Margin="34,137,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>
                 <Label Content="Stanowisko" HorizontalAlignment="Left" Margin="184,138,0,0" VerticalAlignment="Top" Height="23" FontFamily="Lato" Padding="0,5,5,0"/>
-                <ComboBox x:Name="StanowiskoBox" HorizontalAlignment="Left" Margin="184,161,0,0" VerticalAlignment="Top" Width="120">
+                <ComboBox x:Name="StanowiskoBox" HorizontalAlignment="Left" Margin="184,161,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="1">
                     <ComboBoxItem Content="Recepcja"/>
                     <ComboBoxItem Content="Lekarz"/>
                 </ComboBox>
@@ -57,7 +57,7 @@
                         <DataGridTextColumn Header="Id" Binding="{Binding id}"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Imie" Binding="{Binding imie}" />
                         <DataGridTextColumn Header="Nazwisko" Binding="{Binding nazwisko}" />
-                        <DataGridTextColumn Header="Pesel" Binding="{Binding pesel}"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Pesel" Binding="{Binding pesel}" />
                         <DataGridTextColumn Header="Adres" Binding="{Binding adres}" />
                         <DataGridTextColumn Header="Telefon" Binding="{Binding telefon}" />
                         <DataGridComboBoxColumn Header="Status" x:Name="stanowisko_combo"  TextBinding="{Binding stanowisko}" />

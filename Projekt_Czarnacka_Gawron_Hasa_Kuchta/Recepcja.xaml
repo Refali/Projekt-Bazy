@@ -83,7 +83,7 @@
                         <DataGridTextColumn Header="Id" Binding="{Binding id}"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Imie" Binding="{Binding imie}" />
                         <DataGridTextColumn Header="Nazwisko" Binding="{Binding nazwisko}" />
-                        <DataGridTextColumn Header="Pesel" Binding="{Binding pesel}"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Pesel" Binding="{Binding pesel}" />
                         <DataGridTextColumn Header="Adres" Binding="{Binding adres}" />
                         <DataGridTextColumn Header="Telefon" Binding="{Binding telefon}" />
                     </DataGrid.Columns>
