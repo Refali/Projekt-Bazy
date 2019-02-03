@@ -17,7 +17,7 @@
                     <MenuItem Header="_Nowy pacjent" Click="NowyPacjent_Click" />
                     <MenuItem Header="_Nowa wizyta" Click="NowaWizyta_Click" />
                     <MenuItem Header="_Wizyty" Click="EdycjaWizyty_Click" />
-                    <MenuItem Header="_Pacjenci" Click="UsunPacjenta_Click" />
+                    <MenuItem Header="_Pacjenci" Click="EdycjaPacjenta_Click" />
                     <MenuItem Header="_Wyloguj" Click="Wyloguj_Click" />
                 </MenuItem>
             </Menu>
@@ -61,7 +61,7 @@
 
             </Grid>
             <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
-                <DataGrid x:Name="WizytyView" Margin="22,10,-272,0" AutoGenerateColumns="false" CanUserAddRows="false" Height="280" VerticalAlignment="Top" RowEditEnding="WizytyView_RowEditEnding">
+                <DataGrid x:Name="WizytyView" Margin="22,10,-272,0" AutoGenerateColumns="false" CanUserAddRows="false"  CanUserDeleteRows="False" Height="280" VerticalAlignment="Top" RowEditEnding="WizytyView_RowEditEnding">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Pacjent" Binding="{Binding Pacjent}"  IsReadOnly="True"/>
@@ -77,8 +77,8 @@
                 <Label x:Name="Label_WizytyZmiany" Content="Zmiany nie zostały zapisane!"  HorizontalAlignment="Left" Margin="440,364,-287,0" VerticalAlignment="Top" Width="190" FontFamily="Lato" Height="32" FontSize="14" Background="{x:Null}" Foreground="Red" Visibility="Collapsed" />
                 <Label Content="Wyszukaj:" HorizontalAlignment="Left" Margin="22,305,0,0" VerticalAlignment="Top" FontFamily="Lato"/>
             </Grid>
-            <Grid x:Name="PanelUsuwaniaPacjenta" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
-                <DataGrid x:Name="UsuwanieView" Height="280" Margin="-125,10,-125,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False" RowEditEnding="UsuwanieView_RowEditEnding">
+            <Grid x:Name="PanelEdycjiPacjenta" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
+                <DataGrid x:Name="PacjentView" Height="280" Margin="-125,10,-125,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False" RowEditEnding="UsuwanieView_RowEditEnding">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Imie" Binding="{Binding imie}" />
@@ -89,7 +89,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <TextBox x:Name="txtWyszukajPacjenta" HorizontalAlignment="Left" Height="32" Margin="-125,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" TextChanged="TxtWyszukajPacjenta_TextChanged"/>
-                <Button x:Name="edytujPacnjentaBtn" Content="AKTUALIZUJ" HorizontalAlignment="Left" Margin="117,329,0,0" VerticalAlignment="Top" Width="105" Click="UsuńBtn_Click" Background="#FFC6E377" FontFamily="Lato" Height="32" FontSize="14"/>
+                <Button x:Name="edytujPacnjentaBtn" Content="AKTUALIZUJ" HorizontalAlignment="Left" Margin="117,329,0,0" VerticalAlignment="Top" Width="105" Click="EdytujPacjentaBtn_Click" Background="#FFC6E377" FontFamily="Lato" Height="32" FontSize="14"/>
                 <Label x:Name="Label_PacjenciZmiany" Content="Zmiany nie zostały zapisane!"  HorizontalAlignment="Left" Margin="293,364,-134,0" VerticalAlignment="Top" Width="184" FontFamily="Lato" Height="32" FontSize="14" Background="{x:Null}" Foreground="Red" Visibility="Hidden" />
                 <Label Content="Wyszukaj:" HorizontalAlignment="Left" Margin="-125,305,0,0" VerticalAlignment="Top" FontFamily="Lato"/>
             </Grid>

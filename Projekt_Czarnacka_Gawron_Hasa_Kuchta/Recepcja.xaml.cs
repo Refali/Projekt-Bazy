@@ -19,7 +19,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
     public partial class Recepcja : Window
     {
         SqlConnection conn;
-        SqlDataAdapter dataAdapterP,dataAdapterW, dataAdapterUsuwaniePacjenta, dataAdapterEdycjaWizyt;
+        SqlDataAdapter dataAdapterP,dataAdapterW, dataAdapterEdycjaPacjenta, dataAdapterEdycjaWizyt;
         DataSet dsp, dsw;
         DataTable dt,dt2;
 
@@ -64,15 +64,15 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             DodawanieWizyty();   //dodawanie wizyty          
         }
 
-        private void UsuńBtn_Click(object sender, RoutedEventArgs e)
+        private void EdytujPacjentaBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 DataTable zmiany2 = dt2.GetChanges();
                 if (zmiany2 != null)
                 {
-                    SqlCommandBuilder zmianyUpdate2 = new SqlCommandBuilder(dataAdapterUsuwaniePacjenta);
-                    int zmienioneWiersze2 = dataAdapterUsuwaniePacjenta.Update(zmiany2);
+                    SqlCommandBuilder zmianyUpdate2 = new SqlCommandBuilder(dataAdapterEdycjaPacjenta);
+                    int zmienioneWiersze2 = dataAdapterEdycjaPacjenta.Update(zmiany2);
                     dt2.AcceptChanges();
                     Label_PacjenciZmiany.Visibility = Visibility.Hidden;
                 }
@@ -314,11 +314,11 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                     CommandText = "select * from Pacjenci",
                     Connection = conn
                 };
-                dataAdapterUsuwaniePacjenta = new SqlDataAdapter(cmd2);
+                dataAdapterEdycjaPacjenta = new SqlDataAdapter(cmd2);
                 dt2 = new DataTable("Pacjenci");
-                dataAdapterUsuwaniePacjenta.Fill(dt2);
+                dataAdapterEdycjaPacjenta.Fill(dt2);
 
-                UsuwanieView.ItemsSource = dt2.DefaultView;
+                PacjentView.ItemsSource = dt2.DefaultView;
             }
             catch (Exception ex)
             {
@@ -457,12 +457,12 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             {
 
                 dt2.DefaultView.RowFilter = "Imie LIKE '%" + txtWyszukajPacjenta.Text + "%' or Nazwisko LIKE '%" + txtWyszukajPacjenta.Text + "%'";
-                UsuwanieView.ItemsSource = dt2.DefaultView;
+                PacjentView.ItemsSource = dt2.DefaultView;
             }
             else
             {
                 dt2.DefaultView.RowFilter = "Imie LIKE '%'";
-                UsuwanieView.ItemsSource = dt2.DefaultView;
+                PacjentView.ItemsSource = dt2.DefaultView;
             }
         }
 
@@ -474,19 +474,19 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             PanelDodawaniePacjenta.Visibility = Visibility.Visible;
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Collapsed;
-            PanelUsuwaniaPacjenta.Visibility = Visibility.Collapsed;
+            PanelEdycjiPacjenta.Visibility = Visibility.Collapsed;
             this.Width = 352.594;
             this.Height = 471;
         }
 
-        private void UsunPacjenta_Click(object sender, RoutedEventArgs e)
+        private void EdycjaPacjenta_Click(object sender, RoutedEventArgs e)
         {
             Title = "Recepcja - Pacjenci";
             Fill_DataGrid_Pacjenci();
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Collapsed;
-            PanelUsuwaniaPacjenta.Visibility = Visibility.Visible;
+            PanelEdycjiPacjenta.Visibility = Visibility.Visible;
             this.Width = 652.594;
             this.Height = 471;
         }
@@ -497,7 +497,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             PanelDodawanieWizyty.Visibility = Visibility.Visible;
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Collapsed;
-            PanelUsuwaniaPacjenta.Visibility = Visibility.Collapsed;
+            PanelEdycjiPacjenta.Visibility = Visibility.Collapsed;
             this.Width = 352.594;
             this.Height = 471;
         }
@@ -509,7 +509,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             PanelDodawanieWizyty.Visibility = Visibility.Collapsed;
             PanelDodawaniePacjenta.Visibility = Visibility.Collapsed;
             PanelEdycjaWizyty.Visibility = Visibility.Visible;
-            PanelUsuwaniaPacjenta.Visibility = Visibility.Collapsed;
+            PanelEdycjiPacjenta.Visibility = Visibility.Collapsed;
             this.Width = 652.594;
             this.Height = 471;
         }

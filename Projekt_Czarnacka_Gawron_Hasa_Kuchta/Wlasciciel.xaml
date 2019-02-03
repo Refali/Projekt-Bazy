@@ -52,7 +52,7 @@
                 </ComboBox>
             </Grid>
             <Grid x:Name="PanelPracownikow" Width="343" Panel.ZIndex="1" Visibility="Collapsed">
-                <DataGrid x:Name="PracownicyView" Height="286" Margin="-135,10,-135,0" VerticalAlignment="Top" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False" HorizontalAlignment="Left" Width="613" RowEditEnding="PracownicyView_RowEditEnding">
+                <DataGrid x:Name="PracownicyView" Height="286" Margin="-135,10,-135,0" VerticalAlignment="Top" CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="false" CanUserDeleteRows="False" HorizontalAlignment="Left" Width="613" RowEditEnding="PracownicyView_RowEditEnding">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Imie" Binding="{Binding imie}" />

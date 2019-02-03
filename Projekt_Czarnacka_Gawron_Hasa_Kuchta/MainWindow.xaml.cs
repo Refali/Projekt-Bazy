@@ -52,8 +52,8 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 {
                     InitialCatalog = "Firma",
 
-                    //DataSource = "localhost",
-                    DataSource = @"DESKTOP-SLTS1AQ\SQLEXPRESS",
+                    DataSource = "localhost",
+                    //DataSource = @"DESKTOP-SLTS1AQ\SQLEXPRESS",
 
                     IntegratedSecurity = true
                 };

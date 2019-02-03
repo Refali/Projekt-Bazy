@@ -12,7 +12,7 @@
 
         <DockPanel>
             <Grid x:Name="PanelEdycjaWizyty" Width="657" Panel.ZIndex="1" Visibility="Visible" Background="#FFFBFAD3" Margin="0,2,0,-1.6">
-                <DataGrid x:Name="WizytyView" Height="235" Margin="28,99,26,0" VerticalAlignment="Top" AutoGenerateColumns="false" CanUserAddRows="false" FontFamily="Lato" Width="Auto" RowEditEnding="WizytyView_RowEditEnding" >
+                <DataGrid x:Name="WizytyView" Height="235" Margin="28,99,26,0" VerticalAlignment="Top" AutoGenerateColumns="false" CanUserAddRows="false" CanUserDeleteRows="False" FontFamily="Lato" Width="Auto" RowEditEnding="WizytyView_RowEditEnding" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding id}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Pacjent" Binding="{Binding Pacjent}"  IsReadOnly="True"/>
