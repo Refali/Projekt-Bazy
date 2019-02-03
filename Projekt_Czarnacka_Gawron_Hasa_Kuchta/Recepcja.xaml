@@ -58,7 +58,6 @@
                     <ComboBoxItem Content="17:00" Name="siedemnasta"/>
                     <ComboBoxItem Content="18:00" Name="osiemnasta"/>
                 </ComboBox>
-                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="100" Margin="114,54,0,0" VerticalAlignment="Top" Width="100"/>
 
             </Grid>
             <Grid x:Name="PanelEdycjaWizyty" Width="343" Panel.ZIndex="1" Visibility="Collapsed">

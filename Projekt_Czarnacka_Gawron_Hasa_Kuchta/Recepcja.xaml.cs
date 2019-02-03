@@ -29,13 +29,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         int ilosc = 0;
         int iloscPacjenta = 0;
 
-        //combobox
-        List<ComboBoxItem> lista = new List<ComboBoxItem>
-                {
-                    new ComboBoxItem() { Content = "Anulowana" },
-                    new ComboBoxItem() { Content = "Zarezerwowana" },
-                    new ComboBoxItem() { Content = "Zakończona" }
-                };
+       
 
 
         public Recepcja()
@@ -51,11 +45,11 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             this.conn = conn;
             this.userName = userName;
 
-            Status(); //status i zalogowano jako
+            Status(); //zalogowano jako
 
-            Selecty(); //wszystkie potrzebne selecty
-            Fill_DataGrid_Wizyty(); 
-            Fill_DataGrid_Pacjenci();
+            Selecty(); //wszystkie potrzebne zapytania SQL
+            Fill_DataGrid_Wizyty(); //uzupełnianie grida z wizytami
+            Fill_DataGrid_Pacjenci(); //uzupełnianie grida z pacjentami
             Fill_PacjentListBox(); //uzupełnienie listy Pacjentów w dodawaniu wizyty - wywołanie
             Fill_LekarzListBox(); //uzupełnienie listy Lekarzy w dodawaniu wizyty - wywołanie
         }
@@ -134,7 +128,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             try
             {
 
-                
+                // sprawdzenie pajenta
                 SqlCommand queryPacjenta = new SqlCommand();
                 string polecenie = "Select id from Pacjenci where pesel like @peselPacjenta";
                 string peselpacjenta = PacjentListBox.SelectedValue.ToString().Substring(7, 11);
@@ -296,7 +290,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
             
             userLbl.Content = userName;
         }
-        //selecty
+        //potrzebne zapytania SQL
         void Selecty()
         {
             string querySelectPacjenci = "Select * from Pacjenci";
@@ -331,6 +325,13 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 MessageBox.Show(ex.Message);
             }
         }
+        //combobox z grida do zmiany statusu wizyty
+        List<ComboBoxItem> lista = new List<ComboBoxItem>
+                {
+                    new ComboBoxItem() { Content = "Anulowana" },
+                    new ComboBoxItem() { Content = "Zarezerwowana" },
+                    new ComboBoxItem() { Content = "Zakończona" }
+                };
         //wypełnienie grida z wizytami
         void Fill_DataGrid_Wizyty()
         {

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 using System.Data.SqlClient;
 using System.Data;
 
@@ -22,6 +23,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         SqlConnection conn;
         SqlConnectionStringBuilder connString;
         string idLekarza;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -45,6 +47,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
         {
             try
             {
+                //utworzenie obiektu połączeniowego
                 connString = new SqlConnectionStringBuilder
                 {
                     InitialCatalog = "Firma",
@@ -58,6 +61,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
 
                 
                 SqlCommand query = new SqlCommand();
+                //wybranie pracownika o danym loginie i haśle
                 string polecenie = "Select Stanowisko,id from Pracownicy where login=@login and haslo=@password";
 
                 query.Parameters.AddWithValue("@login", userTxt.Text);
@@ -65,6 +69,7 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 query.CommandText = polecenie;
                 query.Connection = conn;
 
+                //pobranie wybranych danych do obiektu DataTable
                 SqlDataAdapter adapter = new SqlDataAdapter(query);
                 DataTable Pracownicy = new DataTable();
                 adapter.Fill(Pracownicy);
@@ -72,11 +77,11 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                 int ilosc = Pracownicy.Rows.Count;
                 string stanowisko = "";
                 
-               
+               //Sprawdzenie jaki użytkownik będzie będzie zalogowany, oraz wybranie okna dla niego przeznaczonego
                 if (ilosc == 1)
                 {
                     stanowisko = Pracownicy.Rows[0]["stanowisko"].ToString();
-                    if (stanowisko == "Recepcjonistka" || stanowisko == "Recepcja")
+                    if (stanowisko == "Recepcja")
                     {
                         Recepcja recepcjaOkno = new Recepcja(conn, userTxt.Text);
                         recepcjaOkno.Show();
@@ -94,13 +99,9 @@ namespace Projekt_Czarnacka_Gawron_Hasa_Kuchta
                         Wlasciciel bossOkno = new Wlasciciel(conn, userTxt.Text);
                         bossOkno.Show();
                         this.Close();
-                    }
-                    else
-                    {
-                        conn.Close();
-
-                    }
+                    }                   
                 }
+
                 lbNieprawidloweDane.Visibility = Visibility.Visible;
                 userTxt.Clear();
                 passwordTxt.Clear();
